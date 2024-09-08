@@ -19,13 +19,13 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
             return types_request.make_hook_error_response("Method %s Not Allowed".format(request.method))
         try:
             request_ctx = types_request.make_base_request_context(request)
-            if request_ctx.user is None:
+            if request_ctx.internal_client.user is None:
                 return types_request.make_hook_error_response("User not found")
             output_data = module.func(request_ctx)
             return types_request.make_json_response(types_models.MiddlewareHookResponse(
                 hook=types_models_ext.get_enum_by_value(types_models.MiddlewareHook, module.name),
                 response=output_data.to_dict() if output_data else {},
-                setClientRequestHeaders=request_ctx.clientRequest.headers
+                setClientRequestHeaders=request_ctx.internal_client.clientRequest.headers.to_dict()
             ))
         except Exception as e:
             return types_request.make_hook_error_response(e)
