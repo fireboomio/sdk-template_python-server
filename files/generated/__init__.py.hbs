@@ -1,0 +1,15 @@
+import importlib
+
+from dotenv import load_dotenv, find_dotenv
+
+from custom_py.generated import models
+
+
+def _set_generated_models():
+    from custom_py.src.types import models_extension as types_models_ext
+    types_models_ext.generated_models = importlib.import_module('custom_py.generated.models', package=".")
+
+
+load_dotenv(find_dotenv('{{nodeEnvFilepath}}'))
+models.register_init_parameter_renames()
+_set_generated_models()

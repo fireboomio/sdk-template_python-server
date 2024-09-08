@@ -1,0 +1,13 @@
+{{~#equal typeName ''}}object{{/equal~}}
+{{~#equal typeName 'boolean'}}bool{{/equal~}}
+{{~#equal typeName 'integer'}}int{{/equal~}}
+{{~#equal typeName 'number'}}float{{/equal~}}
+{{~#equal typeName 'string'}}
+    {{~#if (equalAny typeFormat 'date,date-time')}}datetime
+    {{~else}}{{#equal typeFormat 'decimal'}}Decimal
+    {{~else}}{{#equal typeFormat 'byte'}}bytes
+    {{~else}}{{#equal typeFormat 'geometry'}}str
+    {{~else}}{{#equal typeFormat 'binary'}}str
+    {{~else}}str
+    {{~/equal}}{{/equal}}{{/equal}}{{/equal}}{{/if~}}
+{{/equal~}}

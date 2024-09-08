@@ -1,0 +1,56 @@
+from enum import Enum
+from typing import Optional
+from custom_py.src.utils import json_parser
+{{#each typeFormatArray}}
+{{~#if (isAbsent ../onceMap 'import datetime' (equalAny this 'date,date-time'))}}
+from datetime import datetime
+{{~else}}{{~#if (isAbsent ../onceMap 'import decimal' (equalAny this 'decimal'))}}
+from decimal import Decimal
+{{/if~}}{{/if~}}
+{{/each}}
+
+{{#each enumFieldArray}}{{#if (isAbsent onceMap name 1)}}
+class {{name}}(Enum):
+    {{#each values}}
+    {{this}}{{#if (stringInArray this sdk.keywords)}}_{{/if}} = {{#if (equalAny valueType ',string')}}"{{this}}"{{else}}{{this}}{{/if}}
+    {{/each}}
+    {{/if~}}
+{{/each}}
+
+{{#each objectFieldArray}}{{#if (isAbsent onceMap (joinString '_' documentPath) 1)}}
+{{#if description}}"""{{description}}"""
+{{/if}}class {{joinString '_' documentPath~}}
+    {{~#if additional}}({{#equal typeName 'array'}}list[{{else}}dict[str, {{/equal~}}
+    {{#with additional}}{{~> field_type this=this}}]){{/with}}:
+    {{~else}}:
+    def __init__(self{{#unless fields}}){{else}},
+                {{#each fields}} {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if~}}
+                : {{#unless required}}Optional[{{/unless}}{{#if isArray}}list[{{/if}}
+                {{~> field_type this=this~}}
+                {{#if isArray}}]{{/if~}}{{#unless required}}]{{/unless}} = None{{#unless @last}},{{/unless}}
+                {{/each}}){{/unless}}:
+        {{#unless fields}}pass
+        {{~else}}{{#each fields}}{{#if description}}"""{{description}}"""
+        {{/if}}self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} = {{#if typeRefObject}}json_parser.parse_{{#if isArray}}list{{else}}dict{{/if}}_to_class({{/if~}}
+        {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}
+        {{~#if typeRefObject}}, {{joinString '_' typeRefObject.documentPath~}}){{/if}}
+        {{/each}}{{/unless~}}
+    {{/if}}
+
+    def to_dict(self) -> dict:
+        _dict = self{{#unless additional}}.__dict__.copy(){{/unless}}
+        {{#each fields}}{{#if (isAnyTrue (isNotEmpty typeRefObject) (isNotEmpty typeRefEnum))~}}
+        _dict['{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}'] =
+        {{~#if isArray}} [x.{{#if typeRefEnum}}value{{else}}to_dict(){{/if}} for x in self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}]
+        {{~else}} self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}.{{#if typeRefEnum}}value{{else}}to_dict(){{/if}}
+        {{~/if}} if self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} else None
+        {{/if}}{{/each}}
+        json_parser.recover_dict_keys(_dict, {{joinString '_' documentPath~}})
+        return _dict
+    {{/if}}
+{{/each}}
+
+def register_init_parameter_renames():
+{{~#each objectFieldArray}}{{#with (filterFieldsByKeywords fields sdk.keywords)}}
+    json_parser.init_parameter_renames[{{joinString '_' ../documentPath}}] = [{{#each this}}json_parser.init_parameter_rename('{{name}}', '{{name}}_'){{#unless @last}}, {{/unless}}{{/each}}]
+{{~/with}}{{/each}}

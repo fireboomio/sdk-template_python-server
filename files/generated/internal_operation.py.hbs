@@ -1,0 +1,6 @@
+from custom_py.src.plugins import internal_request
+from custom_py.generated import models
+
+{{#each operations}}{{#if (equalAny engine '0')~}}
+{{name}} = internal_request.internal_operation[models.{{name}}InternalInput, models.{{name}}ResponseData]("{{path}}", {{type}})
+{{/if~}}{{/each}}
