@@ -21,32 +21,45 @@ class {{name}}(Enum):
 {{#if description}}"""{{description}}"""
 {{/if}}class {{joinString '_' documentPath~}}
     {{~#if additional}}({{#equal typeName 'array'}}list[{{else}}dict[str, {{/equal~}}
-    {{#with additional}}{{~> field_type this=this}}]){{/with}}:
-    {{~else}}:
+    {{#with additional}}{{~> field_type this=this}}]){{/with}}{{/if}}:
     def __init__(self{{#unless fields}}){{else}},
                 {{#each fields}} {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if~}}
                 : {{#unless required}}Optional[{{/unless}}{{#if isArray}}list[{{/if}}
                 {{~> field_type this=this~}}
                 {{#if isArray}}]{{/if~}}{{#unless required}}]{{/unless}} = None{{#unless @last}},{{/unless}}
                 {{/each}}){{/unless}}:
-        {{#unless fields}}pass
+        {{#if additional~}}
+        {{#with additional.typeRefObject}}
+        for k{{#unless (equalAny ../typeName 'array')}}, v{{/unless}} in {{#equal ../typeName 'array'~}}range(len(self)){{else}}self.items(){{/equal}}:
+            self[k] = json_parser.parse_dict_to_class({{#equal ../typeName 'array'~}}self[k]{{else}}v{{/equal}}, {{joinString '_' documentPath}})
+        {{/with}}
+        super().__init__()
+        {{/if}}
+        {{#unless fields}}{{#unless additional}}pass{{/unless}}
         {{~else}}{{#each fields}}{{#if description}}"""{{description}}"""
         {{/if}}self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} = {{#if typeRefObject}}json_parser.parse_{{#if isArray}}list{{else}}dict{{/if}}_to_class({{/if~}}
         {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}
         {{~#if typeRefObject}}, {{joinString '_' typeRefObject.documentPath~}}){{/if}}
-        {{/each}}{{/unless~}}
-    {{/if}}
-
-    def to_dict(self) -> dict:
-        _dict = self{{#unless additional}}.__dict__.copy(){{/unless}}
+        {{/each}}{{/unless}}
+    def to_json(self) -> {{#equal typeName 'array'}}list{{else}}dict{{/equal~}}:
+        _json = self{{#unless additional}}.__dict__.copy(){{/unless}}
         {{#each fields}}{{#if (isAnyTrue (isNotEmpty typeRefObject) (isNotEmpty typeRefEnum))~}}
-        _dict['{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}'] =
-        {{~#if isArray}} [x.{{#if typeRefEnum}}value{{else}}to_dict(){{/if}} for x in self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}]
-        {{~else}} self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}.{{#if typeRefEnum}}value{{else}}to_dict(){{/if}}
+        _json['{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}'] =
+        {{~#if isArray}} [x.{{#if typeRefEnum}}value{{else}}to_json(){{/if}} for x in self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}]
+        {{~else}} self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}.{{#if typeRefEnum}}value{{else}}to_json(){{/if}}
         {{~/if}} if self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} else None
-        {{/if}}{{/each}}
-        json_parser.recover_dict_keys(_dict, {{joinString '_' documentPath~}})
-        return _dict
+        {{/if}}{{/each~}}
+        {{#if additional}}{{#with additional.typeRefObject}}
+        _json = {{#equal ../typeName 'array'~}}
+            [json_parser.recover_dict_keys(x.to_json(), {{joinString '_' documentPath~}}) for x in _json]
+            {{else~}}
+            {k: json_parser.recover_dict_keys(v.to_json(), {{joinString '_' documentPath~}}) for k, v in _json.items()}
+            {{~/equal}}
+        {{~/with}}
+        {{~else}}json_parser.recover_dict_keys(_json, {{joinString '_' documentPath}})
+        {{~/if}}
+
+        return _json
     {{/if}}
 {{/each}}
 

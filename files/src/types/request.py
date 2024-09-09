@@ -19,7 +19,7 @@ class internal_client(types_models.BaseRequestBodyWg):
         self.extraHeaders = extraHeaders
         super().__init__(clientRequest, user)
 
-    def to_dict(self) -> dict:
+    def to_json(self) -> dict:
         _dict = self.__dict__.copy()
         return _dict
 
@@ -33,7 +33,7 @@ class request_context:
         self.request = request
         self.internal_client = internal_client(extraHeaders, clientRequest, user)
 
-    def to_dict(self) -> dict:
+    def to_json(self) -> dict:
         _dict = self.__dict__.copy()
         return _dict
 

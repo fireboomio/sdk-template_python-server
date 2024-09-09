@@ -40,8 +40,8 @@ def parse_list_to_class(_list: Union[list[Union[dict, T]], str], _cls: Type[T]) 
 
 
 def json_dumps(obj: object) -> str:
-    if hasattr(obj, 'to_dict'):
-        obj = obj.to_dict()
+    if hasattr(obj, 'to_json'):
+        obj = obj.to_json()
     if isinstance(obj, dict):
         obj = filter_null_keys(obj)
     return json.dumps(obj, default=filter_null_keys)

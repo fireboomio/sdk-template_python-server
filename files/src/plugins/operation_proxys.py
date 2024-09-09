@@ -23,7 +23,7 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
             output_data = module.func(request_ctx, input_data)
             return types_request.make_json_response(types_models.MiddlewareHookResponse(
                 op=operation_path,
-                response=output_data.to_dict() if output_data else {}
+                response=output_data.to_json() if output_data else {}
             ))
         except Exception as e:
             return types_request.make_hook_error_response(e)

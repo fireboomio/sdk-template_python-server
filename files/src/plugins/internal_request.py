@@ -27,13 +27,13 @@ class internal_operation(Generic[I, O]):
         self.check_classes()
         internal_url = get_internal_request_url(self.path)
         client_request = types_models.WunderGraphRequest(
-            headers=client.clientRequest.headers.to_dict(),
+            headers=client.clientRequest.headers.to_json(),
             requestURI=internal_url,
             method="POST")
         base_body_wg = types_models.BaseRequestBodyWg(clientRequest=client_request, user=client.user)
-        request_data = types_models.OperationHookPayload(input=input.to_dict()).to_dict()
-        request_data['__wg'] = base_body_wg.to_dict()
-        request_headers = client.extraHeaders.to_dict()
+        request_data = types_models.OperationHookPayload(input=input.to_json()).to_json()
+        request_data['__wg'] = base_body_wg.to_json()
+        request_headers = client.extraHeaders.to_json()
         request_headers["content-type"] = "application/json"
         response = requests.post(url=internal_url, data=json_parser.json_dumps(request_data), headers=request_headers)
         if response.status_code != 200:

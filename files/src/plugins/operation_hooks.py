@@ -38,7 +38,7 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
             output_data = module.func(request_ctx, input_data)
             if output_data is None:
                 output_data = input_data
-            return types_request.make_json_response(output_data.to_dict())
+            return types_request.make_json_response(output_data.to_json())
         except Exception as e:
             return types_request.make_hook_error_response(e)
 

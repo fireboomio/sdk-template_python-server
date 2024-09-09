@@ -26,14 +26,14 @@ class OperationHookPayload(Generic[I, O]):
         self.setClientRequestHeaders = json_parser.parse_dict_to_class(setClientRequestHeaders,
                                                                        types_models.RequestHeaders)
 
-    def to_dict(self) -> dict:
+    def to_json(self) -> dict:
         _dict = self.__dict__.copy()
         _dict['hook'] = self.hook.value if self.hook else None
-        _dict['input'] = self.input.to_dict() \
-            if hasattr(self.input, "to_dict") else self.__dict__ \
+        _dict['input'] = self.input.to_json() \
+            if hasattr(self.input, "to_json") else self.__dict__ \
             if self.input else None
-        _dict['response'] = self.response.to_dict() if self.response else None
-        _dict['setClientRequestHeaders'] = self.setClientRequestHeaders.to_dict() \
+        _dict['response'] = self.response.to_json() if self.response else None
+        _dict['setClientRequestHeaders'] = self.setClientRequestHeaders.to_json() \
             if self.setClientRequestHeaders else None
         return {k: v for k, v in _dict.items() if not k.startswith('__')}
 
@@ -46,13 +46,13 @@ class OperationHookPayload_response(Generic[O]):
         self.data = data
         self.errors = json_parser.parse_list_to_class(errors, types_models.RequestError)
 
-    def to_dict(self) -> dict:
+    def to_json(self) -> dict:
         _dict = self.__dict__.copy()
         if isinstance(self.data, list):
-            _dict['data'] = [x.to_dict() if hasattr(x, "to_dict") else x.__dict__ for x in self.data]
+            _dict['data'] = [x.to_json() if hasattr(x, "to_json") else x.__dict__ for x in self.data]
         elif not None:
-            _dict['data'] = self.data.to_dict() if hasattr(self.data, "to_dict") else self.__dict__
-        _dict['errors'] = [x.to_dict() for x in self.errors] if self.errors else None
+            _dict['data'] = self.data.to_json() if hasattr(self.data, "to_json") else self.__dict__
+        _dict['errors'] = [x.to_json() for x in self.errors] if self.errors else None
         return {k: v for k, v in _dict.items() if not k.startswith('__')}
 
 
@@ -66,10 +66,10 @@ class UploadHookPayload(Generic[I]):
         self.file = json_parser.parse_dict_to_class(file, types_models.HookFile)
         self.meta = meta
 
-    def to_dict(self) -> dict:
+    def to_json(self) -> dict:
         _dict = self.__dict__.copy()
-        _dict['error'] = self.error.to_dict() if self.error else None
-        _dict['file'] = self.file.to_dict() if self.file else None
+        _dict['error'] = self.error.to_json() if self.error else None
+        _dict['file'] = self.file.to_json() if self.file else None
 
         json_parser.recover_dict_keys(_dict, UploadHookPayload)
         return {k: v for k, v in _dict.items() if not k.startswith('__')}

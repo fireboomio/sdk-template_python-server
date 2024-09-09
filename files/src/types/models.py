@@ -273,14 +273,13 @@ class ApiAuthenticationConfig:
         self.jwksBased = json_parser.parse_dict_to_class(jwksBased, JwksBasedAuthentication)
         self.publicClaims = publicClaims
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['cookieBased'] = self.cookieBased.to_dict() if self.cookieBased else None
-        _dict['hooks'] = self.hooks.to_dict() if self.hooks else None
-        _dict['jwksBased'] = self.jwksBased.to_dict() if self.jwksBased else None
-
-        json_parser.recover_dict_keys(_dict, ApiAuthenticationConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['cookieBased'] = self.cookieBased.to_json() if self.cookieBased else None
+        _json['hooks'] = self.hooks.to_json() if self.hooks else None
+        _json['jwksBased'] = self.jwksBased.to_json() if self.jwksBased else None
+        json_parser.recover_dict_keys(_json, ApiAuthenticationConfig)
+        return _json
 
 
 class ApiAuthenticationHooks:
@@ -295,11 +294,10 @@ class ApiAuthenticationHooks:
         self.postLogout = postLogout
         self.revalidateAuthentication = revalidateAuthentication
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, ApiAuthenticationHooks)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, ApiAuthenticationHooks)
+        return _json
 
 
 class ArgumentConfiguration:
@@ -316,13 +314,12 @@ class ArgumentConfiguration:
         self.sourcePath = sourcePath
         self.sourceType = sourceType
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['renderConfiguration'] = self.renderConfiguration.value if self.renderConfiguration else None
-        _dict['sourceType'] = self.sourceType.value if self.sourceType else None
-
-        json_parser.recover_dict_keys(_dict, ArgumentConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['renderConfiguration'] = self.renderConfiguration.value if self.renderConfiguration else None
+        _json['sourceType'] = self.sourceType.value if self.sourceType else None
+        json_parser.recover_dict_keys(_json, ArgumentConfiguration)
+        return _json
 
 
 class AuthProvider:
@@ -337,14 +334,13 @@ class AuthProvider:
         self.kind = kind
         self.oidcConfig = json_parser.parse_dict_to_class(oidcConfig, OpenIDConnectAuthProviderConfig)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['githubConfig'] = self.githubConfig.to_dict() if self.githubConfig else None
-        _dict['kind'] = self.kind.value if self.kind else None
-        _dict['oidcConfig'] = self.oidcConfig.to_dict() if self.oidcConfig else None
-
-        json_parser.recover_dict_keys(_dict, AuthProvider)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['githubConfig'] = self.githubConfig.to_json() if self.githubConfig else None
+        _json['kind'] = self.kind.value if self.kind else None
+        _json['oidcConfig'] = self.oidcConfig.to_json() if self.oidcConfig else None
+        json_parser.recover_dict_keys(_json, AuthProvider)
+        return _json
 
 
 class BaseRequestBody:
@@ -353,12 +349,11 @@ class BaseRequestBody:
                  ):
         self.__wg = json_parser.parse_dict_to_class(__wg, BaseRequestBodyWg)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['__wg'] = self.__wg.to_dict() if self.__wg else None
-
-        json_parser.recover_dict_keys(_dict, BaseRequestBody)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['__wg'] = self.__wg.to_json() if self.__wg else None
+        json_parser.recover_dict_keys(_json, BaseRequestBody)
+        return _json
 
 
 class BaseRequestBodyWg:
@@ -369,13 +364,12 @@ class BaseRequestBodyWg:
         self.clientRequest = json_parser.parse_dict_to_class(clientRequest, WunderGraphRequest)
         self.user = json_parser.parse_dict_to_class(user, User)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['clientRequest'] = self.clientRequest.to_dict() if self.clientRequest else None
-        _dict['user'] = self.user.to_dict() if self.user else None
-
-        json_parser.recover_dict_keys(_dict, BaseRequestBodyWg)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['clientRequest'] = self.clientRequest.to_json() if self.clientRequest else None
+        _json['user'] = self.user.to_json() if self.user else None
+        json_parser.recover_dict_keys(_json, BaseRequestBodyWg)
+        return _json
 
 
 class ClaimConfig:
@@ -388,13 +382,12 @@ class ClaimConfig:
         self.custom = json_parser.parse_dict_to_class(custom, CustomClaim)
         self.variablePathComponents = variablePathComponents
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['claimType'] = self.claimType.value if self.claimType else None
-        _dict['custom'] = self.custom.to_dict() if self.custom else None
-
-        json_parser.recover_dict_keys(_dict, ClaimConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['claimType'] = self.claimType.value if self.claimType else None
+        _json['custom'] = self.custom.to_json() if self.custom else None
+        json_parser.recover_dict_keys(_json, ClaimConfig)
+        return _json
 
 
 class ConfigurationVariable:
@@ -411,12 +404,11 @@ class ConfigurationVariable:
         self.placeholderVariableName = placeholderVariableName
         self.staticVariableContent = staticVariableContent
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['kind'] = self.kind.value if self.kind else None
-
-        json_parser.recover_dict_keys(_dict, ConfigurationVariable)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['kind'] = self.kind.value if self.kind else None
+        json_parser.recover_dict_keys(_json, ConfigurationVariable)
+        return _json
 
 
 class CookieBasedAuthentication:
@@ -436,19 +428,18 @@ class CookieBasedAuthentication:
         self.hashKey = json_parser.parse_dict_to_class(hashKey, ConfigurationVariable)
         self.providers = json_parser.parse_list_to_class(providers, AuthProvider)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['authorizedRedirectUriRegexes'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['authorizedRedirectUriRegexes'] = [x.to_json() for x in
                                                  self.authorizedRedirectUriRegexes] if self.authorizedRedirectUriRegexes else None
-        _dict['authorizedRedirectUris'] = [x.to_dict() for x in
+        _json['authorizedRedirectUris'] = [x.to_json() for x in
                                            self.authorizedRedirectUris] if self.authorizedRedirectUris else None
-        _dict['blockKey'] = self.blockKey.to_dict() if self.blockKey else None
-        _dict['csrfSecret'] = self.csrfSecret.to_dict() if self.csrfSecret else None
-        _dict['hashKey'] = self.hashKey.to_dict() if self.hashKey else None
-        _dict['providers'] = [x.to_dict() for x in self.providers] if self.providers else None
-
-        json_parser.recover_dict_keys(_dict, CookieBasedAuthentication)
-        return _dict
+        _json['blockKey'] = self.blockKey.to_json() if self.blockKey else None
+        _json['csrfSecret'] = self.csrfSecret.to_json() if self.csrfSecret else None
+        _json['hashKey'] = self.hashKey.to_json() if self.hashKey else None
+        _json['providers'] = [x.to_json() for x in self.providers] if self.providers else None
+        json_parser.recover_dict_keys(_json, CookieBasedAuthentication)
+        return _json
 
 
 class CorsConfiguration:
@@ -467,12 +458,11 @@ class CorsConfiguration:
         self.exposedHeaders = exposedHeaders
         self.maxAge = maxAge
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['allowedOrigins'] = [x.to_dict() for x in self.allowedOrigins] if self.allowedOrigins else None
-
-        json_parser.recover_dict_keys(_dict, CorsConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['allowedOrigins'] = [x.to_json() for x in self.allowedOrigins] if self.allowedOrigins else None
+        json_parser.recover_dict_keys(_json, CorsConfiguration)
+        return _json
 
 
 class CustomClaim:
@@ -487,12 +477,11 @@ class CustomClaim:
         self.required = required
         self.type = type
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['type'] = self.type.value if self.type else None
-
-        json_parser.recover_dict_keys(_dict, CustomClaim)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['type'] = self.type.value if self.type else None
+        json_parser.recover_dict_keys(_json, CustomClaim)
+        return _json
 
 
 class CustomizeHookPayload:
@@ -507,21 +496,22 @@ class CustomizeHookPayload:
         self.variables = json_parser.parse_dict_to_class(variables, CustomizeHookPayload_variables)
         self.__wg = json_parser.parse_dict_to_class(__wg, BaseRequestBodyWg)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['variables'] = self.variables.to_dict() if self.variables else None
-        _dict['__wg'] = self.__wg.to_dict() if self.__wg else None
-
-        json_parser.recover_dict_keys(_dict, CustomizeHookPayload)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['variables'] = self.variables.to_json() if self.variables else None
+        _json['__wg'] = self.__wg.to_json() if self.__wg else None
+        json_parser.recover_dict_keys(_json, CustomizeHookPayload)
+        return _json
 
 
 class CustomizeHookPayload_variables(dict[str, object]):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, CustomizeHookPayload_variables)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        return _json
 
 
 class CustomizeHookResponse:
@@ -534,21 +524,22 @@ class CustomizeHookResponse:
         self.errors = json_parser.parse_list_to_class(errors, RequestError)
         self.extensions = json_parser.parse_dict_to_class(extensions, CustomizeHookResponse_extensions)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['errors'] = [x.to_dict() for x in self.errors] if self.errors else None
-        _dict['extensions'] = self.extensions.to_dict() if self.extensions else None
-
-        json_parser.recover_dict_keys(_dict, CustomizeHookResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['errors'] = [x.to_json() for x in self.errors] if self.errors else None
+        _json['extensions'] = self.extensions.to_json() if self.extensions else None
+        json_parser.recover_dict_keys(_json, CustomizeHookResponse)
+        return _json
 
 
 class CustomizeHookResponse_extensions(dict[str, object]):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, CustomizeHookResponse_extensions)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        return _json
 
 
 class DataSourceConfiguration:
@@ -588,48 +579,64 @@ class DataSourceConfiguration:
                                                                              DataSourceConfiguration_customRestResponseRewriterMap)
         self.kindForPrisma = kindForPrisma
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['childNodes'] = [x.to_dict() for x in self.childNodes] if self.childNodes else None
-        _dict['customDatabase'] = self.customDatabase.to_dict() if self.customDatabase else None
-        _dict['customGraphql'] = self.customGraphql.to_dict() if self.customGraphql else None
-        _dict['customRest'] = self.customRest.to_dict() if self.customRest else None
-        _dict['customStatic'] = self.customStatic.to_dict() if self.customStatic else None
-        _dict['directives'] = [x.to_dict() for x in self.directives] if self.directives else None
-        _dict['kind'] = self.kind.value if self.kind else None
-        _dict['rootNodes'] = [x.to_dict() for x in self.rootNodes] if self.rootNodes else None
-        _dict['customRestMap'] = self.customRestMap.to_dict() if self.customRestMap else None
-        _dict[
-            'customRestRequestRewriterMap'] = self.customRestRequestRewriterMap.to_dict() if self.customRestRequestRewriterMap else None
-        _dict[
-            'customRestResponseRewriterMap'] = self.customRestResponseRewriterMap.to_dict() if self.customRestResponseRewriterMap else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['childNodes'] = [x.to_json() for x in self.childNodes] if self.childNodes else None
+        _json['customDatabase'] = self.customDatabase.to_json() if self.customDatabase else None
+        _json['customGraphql'] = self.customGraphql.to_json() if self.customGraphql else None
+        _json['customRest'] = self.customRest.to_json() if self.customRest else None
+        _json['customStatic'] = self.customStatic.to_json() if self.customStatic else None
+        _json['directives'] = [x.to_json() for x in self.directives] if self.directives else None
+        _json['kind'] = self.kind.value if self.kind else None
+        _json['rootNodes'] = [x.to_json() for x in self.rootNodes] if self.rootNodes else None
+        _json['customRestMap'] = self.customRestMap.to_json() if self.customRestMap else None
+        _json[
+            'customRestRequestRewriterMap'] = self.customRestRequestRewriterMap.to_json() if self.customRestRequestRewriterMap else None
+        _json[
+            'customRestResponseRewriterMap'] = self.customRestResponseRewriterMap.to_json() if self.customRestResponseRewriterMap else None
+        json_parser.recover_dict_keys(_json, DataSourceConfiguration)
+        return _json
 
 
 class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, DataSourceCustom_REST)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, DataSourceConfiguration_customRestMap)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), DataSourceCustom_REST) for k, v in _json.items()}
+        return _json
 
 
 class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, DataSourceConfiguration_customRestRequestRewriterMap)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), DataSourceCustom_REST_Rewriter) for k, v in
+                 _json.items()}
+        return _json
 
 
 class DataSourceConfiguration_customRestResponseRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, DataSourceConfiguration_customRestResponseRewriterMap)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), DataSourceCustom_REST_Rewriter) for k, v in
+                 _json.items()}
+        return _json
 
 
 class DataSourceCustom_Database:
@@ -650,13 +657,12 @@ class DataSourceCustom_Database:
         self.jsonTypeFields = json_parser.parse_list_to_class(jsonTypeFields, SingleTypeField)
         self.prismaSchema = prismaSchema
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['databaseURL'] = self.databaseURL.to_dict() if self.databaseURL else None
-        _dict['jsonTypeFields'] = [x.to_dict() for x in self.jsonTypeFields] if self.jsonTypeFields else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceCustom_Database)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['databaseURL'] = self.databaseURL.to_json() if self.databaseURL else None
+        _json['jsonTypeFields'] = [x.to_json() for x in self.jsonTypeFields] if self.jsonTypeFields else None
+        json_parser.recover_dict_keys(_json, DataSourceCustom_Database)
+        return _json
 
 
 class DataSourceCustom_GraphQL:
@@ -676,17 +682,16 @@ class DataSourceCustom_GraphQL:
         self.subscription = json_parser.parse_dict_to_class(subscription, GraphQLSubscriptionConfiguration)
         self.upstreamSchema = upstreamSchema
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['customScalarTypeFields'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['customScalarTypeFields'] = [x.to_json() for x in
                                            self.customScalarTypeFields] if self.customScalarTypeFields else None
-        _dict['federation'] = self.federation.to_dict() if self.federation else None
-        _dict['fetch'] = self.fetch.to_dict() if self.fetch else None
-        _dict['hooksConfiguration'] = self.hooksConfiguration.to_dict() if self.hooksConfiguration else None
-        _dict['subscription'] = self.subscription.to_dict() if self.subscription else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceCustom_GraphQL)
-        return _dict
+        _json['federation'] = self.federation.to_json() if self.federation else None
+        _json['fetch'] = self.fetch.to_json() if self.fetch else None
+        _json['hooksConfiguration'] = self.hooksConfiguration.to_json() if self.hooksConfiguration else None
+        _json['subscription'] = self.subscription.to_json() if self.subscription else None
+        json_parser.recover_dict_keys(_json, DataSourceCustom_GraphQL)
+        return _json
 
 
 class DataSourceCustom_REST:
@@ -707,18 +712,17 @@ class DataSourceCustom_REST:
         self.responseExtractor = json_parser.parse_dict_to_class(responseExtractor, DataSourceRESTResponseExtractor)
         self.responseRewriters = json_parser.parse_list_to_class(responseRewriters, DataSourceRESTRewriter)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['fetch'] = self.fetch.to_dict() if self.fetch else None
-        _dict['statusCodeTypeMappings'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['fetch'] = self.fetch.to_json() if self.fetch else None
+        _json['statusCodeTypeMappings'] = [x.to_json() for x in
                                            self.statusCodeTypeMappings] if self.statusCodeTypeMappings else None
-        _dict['subscription'] = self.subscription.to_dict() if self.subscription else None
-        _dict['requestRewriters'] = [x.to_dict() for x in self.requestRewriters] if self.requestRewriters else None
-        _dict['responseExtractor'] = self.responseExtractor.to_dict() if self.responseExtractor else None
-        _dict['responseRewriters'] = [x.to_dict() for x in self.responseRewriters] if self.responseRewriters else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceCustom_REST)
-        return _dict
+        _json['subscription'] = self.subscription.to_json() if self.subscription else None
+        _json['requestRewriters'] = [x.to_json() for x in self.requestRewriters] if self.requestRewriters else None
+        _json['responseExtractor'] = self.responseExtractor.to_json() if self.responseExtractor else None
+        _json['responseRewriters'] = [x.to_json() for x in self.responseRewriters] if self.responseRewriters else None
+        json_parser.recover_dict_keys(_json, DataSourceCustom_REST)
+        return _json
 
 
 class DataSourceCustom_REST_Rewriter:
@@ -727,12 +731,11 @@ class DataSourceCustom_REST_Rewriter:
                  ):
         self.rewriters = json_parser.parse_list_to_class(rewriters, DataSourceRESTRewriter)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['rewriters'] = [x.to_dict() for x in self.rewriters] if self.rewriters else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceCustom_REST_Rewriter)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['rewriters'] = [x.to_json() for x in self.rewriters] if self.rewriters else None
+        json_parser.recover_dict_keys(_json, DataSourceCustom_REST_Rewriter)
+        return _json
 
 
 class DataSourceCustom_Static:
@@ -741,12 +744,11 @@ class DataSourceCustom_Static:
                  ):
         self.data = json_parser.parse_dict_to_class(data, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['data'] = self.data.to_dict() if self.data else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceCustom_Static)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['data'] = self.data.to_json() if self.data else None
+        json_parser.recover_dict_keys(_json, DataSourceCustom_Static)
+        return _json
 
 
 class DataSourceRESTResponseExtractor:
@@ -759,12 +761,11 @@ class DataSourceRESTResponseExtractor:
         self.statusCodeJsonpath = statusCodeJsonpath
         self.statusCodeScopes = json_parser.parse_list_to_class(statusCodeScopes, DataSourceRESTResponseStatusCodeScope)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['statusCodeScopes'] = [x.to_dict() for x in self.statusCodeScopes] if self.statusCodeScopes else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceRESTResponseExtractor)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['statusCodeScopes'] = [x.to_json() for x in self.statusCodeScopes] if self.statusCodeScopes else None
+        json_parser.recover_dict_keys(_json, DataSourceRESTResponseExtractor)
+        return _json
 
 
 class DataSourceRESTResponseStatusCodeScope:
@@ -775,11 +776,10 @@ class DataSourceRESTResponseStatusCodeScope:
         self.max = max
         self.min = min
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, DataSourceRESTResponseStatusCodeScope)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, DataSourceRESTResponseStatusCodeScope)
+        return _json
 
 
 class DataSourceRESTRewriter:
@@ -809,33 +809,36 @@ class DataSourceRESTRewriter:
         self.quoteObjectName = quoteObjectName
         self.valueRewrites = json_parser.parse_dict_to_class(valueRewrites, DataSourceRESTRewriter_valueRewrites)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict[
-            'applySubCommonFieldValues'] = self.applySubCommonFieldValues.to_dict() if self.applySubCommonFieldValues else None
-        _dict['applySubFieldTypes'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json[
+            'applySubCommonFieldValues'] = self.applySubCommonFieldValues.to_json() if self.applySubCommonFieldValues else None
+        _json['applySubFieldTypes'] = [x.to_json() for x in
                                        self.applySubFieldTypes] if self.applySubFieldTypes else None
-        _dict['applySubObjects'] = [x.to_dict() for x in self.applySubObjects] if self.applySubObjects else None
-        _dict['valueRewrites'] = self.valueRewrites.to_dict() if self.valueRewrites else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceRESTRewriter)
-        return _dict
+        _json['applySubObjects'] = [x.to_json() for x in self.applySubObjects] if self.applySubObjects else None
+        _json['valueRewrites'] = self.valueRewrites.to_json() if self.valueRewrites else None
+        json_parser.recover_dict_keys(_json, DataSourceRESTRewriter)
+        return _json
 
 
 class DataSourceRESTRewriter_applySubCommonFieldValues(dict[str, str]):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, DataSourceRESTRewriter_applySubCommonFieldValues)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        return _json
 
 
 class DataSourceRESTRewriter_valueRewrites(dict[str, str]):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, DataSourceRESTRewriter_valueRewrites)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        return _json
 
 
 class DataSourceRESTSubObject:
@@ -846,12 +849,11 @@ class DataSourceRESTSubObject:
         self.fields = json_parser.parse_list_to_class(fields, DataSourceRESTSubfield)
         self.name = name
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['fields'] = [x.to_dict() for x in self.fields] if self.fields else None
-
-        json_parser.recover_dict_keys(_dict, DataSourceRESTSubObject)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['fields'] = [x.to_json() for x in self.fields] if self.fields else None
+        json_parser.recover_dict_keys(_json, DataSourceRESTSubObject)
+        return _json
 
 
 class DataSourceRESTSubfield:
@@ -862,11 +864,10 @@ class DataSourceRESTSubfield:
         self.name = name
         self.type = type
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, DataSourceRESTSubfield)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, DataSourceRESTSubfield)
+        return _json
 
 
 class DatasourceQuote:
@@ -875,11 +876,10 @@ class DatasourceQuote:
                  ):
         self.fields = fields
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, DatasourceQuote)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, DatasourceQuote)
+        return _json
 
 
 class DateOffset:
@@ -894,12 +894,11 @@ class DateOffset:
         self.value = value
         self.format = format
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['unit'] = self.unit.value if self.unit else None
-
-        json_parser.recover_dict_keys(_dict, DateOffset)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['unit'] = self.unit.value if self.unit else None
+        json_parser.recover_dict_keys(_json, DateOffset)
+        return _json
 
 
 class DirectiveConfiguration:
@@ -910,11 +909,10 @@ class DirectiveConfiguration:
         self.directiveName = directiveName
         self.renameTo = renameTo
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, DirectiveConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, DirectiveConfiguration)
+        return _json
 
 
 class EngineConfiguration:
@@ -932,28 +930,26 @@ class EngineConfiguration:
         self.graphqlSchema = graphqlSchema
         self.typeConfigurations = json_parser.parse_list_to_class(typeConfigurations, TypeConfiguration)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['datasourceConfigurations'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['datasourceConfigurations'] = [x.to_json() for x in
                                              self.datasourceConfigurations] if self.datasourceConfigurations else None
-        _dict['fieldConfigurations'] = [x.to_dict() for x in
+        _json['fieldConfigurations'] = [x.to_json() for x in
                                         self.fieldConfigurations] if self.fieldConfigurations else None
-        _dict['typeConfigurations'] = [x.to_dict() for x in
+        _json['typeConfigurations'] = [x.to_json() for x in
                                        self.typeConfigurations] if self.typeConfigurations else None
-
-        json_parser.recover_dict_keys(_dict, EngineConfiguration)
-        return _dict
+        json_parser.recover_dict_keys(_json, EngineConfiguration)
+        return _json
 
 
 class ErrorPath:
     def __init__(self):
         pass
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, ErrorPath)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, ErrorPath)
+        return _json
 
 
 class FetchConfiguration:
@@ -984,28 +980,32 @@ class FetchConfiguration:
         self.url = json_parser.parse_dict_to_class(url, ConfigurationVariable)
         self.urlEncodeBody = urlEncodeBody
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['baseUrl'] = self.baseUrl.to_dict() if self.baseUrl else None
-        _dict['body'] = self.body.to_dict() if self.body else None
-        _dict['header'] = self.header.to_dict() if self.header else None
-        _dict['mTLS'] = self.mTLS.to_dict() if self.mTLS else None
-        _dict['method'] = self.method.value if self.method else None
-        _dict['path'] = self.path.to_dict() if self.path else None
-        _dict['query'] = [x.to_dict() for x in self.query] if self.query else None
-        _dict['upstreamAuthentication'] = self.upstreamAuthentication.to_dict() if self.upstreamAuthentication else None
-        _dict['url'] = self.url.to_dict() if self.url else None
-
-        json_parser.recover_dict_keys(_dict, FetchConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['baseUrl'] = self.baseUrl.to_json() if self.baseUrl else None
+        _json['body'] = self.body.to_json() if self.body else None
+        _json['header'] = self.header.to_json() if self.header else None
+        _json['mTLS'] = self.mTLS.to_json() if self.mTLS else None
+        _json['method'] = self.method.value if self.method else None
+        _json['path'] = self.path.to_json() if self.path else None
+        _json['query'] = [x.to_json() for x in self.query] if self.query else None
+        _json['upstreamAuthentication'] = self.upstreamAuthentication.to_json() if self.upstreamAuthentication else None
+        _json['url'] = self.url.to_json() if self.url else None
+        json_parser.recover_dict_keys(_json, FetchConfiguration)
+        return _json
 
 
 class FetchConfiguration_header(dict[str, 'HTTPHeader']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, HTTPHeader)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, FetchConfiguration_header)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), HTTPHeader) for k, v in _json.items()}
+        return _json
 
 
 class FieldConfiguration:
@@ -1026,13 +1026,12 @@ class FieldConfiguration:
         self.typeName = typeName
         self.unescapeResponseJson = unescapeResponseJson
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['argumentsConfiguration'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['argumentsConfiguration'] = [x.to_json() for x in
                                            self.argumentsConfiguration] if self.argumentsConfiguration else None
-
-        json_parser.recover_dict_keys(_dict, FieldConfiguration)
-        return _dict
+        json_parser.recover_dict_keys(_json, FieldConfiguration)
+        return _json
 
 
 class GithubAuthProviderConfig:
@@ -1043,13 +1042,12 @@ class GithubAuthProviderConfig:
         self.clientId = json_parser.parse_dict_to_class(clientId, ConfigurationVariable)
         self.clientSecret = json_parser.parse_dict_to_class(clientSecret, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['clientId'] = self.clientId.to_dict() if self.clientId else None
-        _dict['clientSecret'] = self.clientSecret.to_dict() if self.clientSecret else None
-
-        json_parser.recover_dict_keys(_dict, GithubAuthProviderConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['clientId'] = self.clientId.to_json() if self.clientId else None
+        _json['clientSecret'] = self.clientSecret.to_json() if self.clientSecret else None
+        json_parser.recover_dict_keys(_json, GithubAuthProviderConfig)
+        return _json
 
 
 class GraphQLDataSourceHooksConfiguration:
@@ -1058,11 +1056,10 @@ class GraphQLDataSourceHooksConfiguration:
                  ):
         self.onWSTransportConnectionInit = onWSTransportConnectionInit
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, GraphQLDataSourceHooksConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, GraphQLDataSourceHooksConfiguration)
+        return _json
 
 
 class GraphQLFederationConfiguration:
@@ -1073,11 +1070,10 @@ class GraphQLFederationConfiguration:
         self.enabled = enabled
         self.serviceSdl = serviceSdl
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, GraphQLFederationConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, GraphQLFederationConfiguration)
+        return _json
 
 
 class GraphQLSubscriptionConfiguration:
@@ -1090,12 +1086,11 @@ class GraphQLSubscriptionConfiguration:
         self.url = json_parser.parse_dict_to_class(url, ConfigurationVariable)
         self.useSSE = useSSE
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['url'] = self.url.to_dict() if self.url else None
-
-        json_parser.recover_dict_keys(_dict, GraphQLSubscriptionConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['url'] = self.url.to_json() if self.url else None
+        json_parser.recover_dict_keys(_json, GraphQLSubscriptionConfiguration)
+        return _json
 
 
 class HTTPHeader:
@@ -1104,12 +1099,11 @@ class HTTPHeader:
                  ):
         self.values = json_parser.parse_list_to_class(values, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['values'] = [x.to_dict() for x in self.values] if self.values else None
-
-        json_parser.recover_dict_keys(_dict, HTTPHeader)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['values'] = [x.to_json() for x in self.values] if self.values else None
+        json_parser.recover_dict_keys(_json, HTTPHeader)
+        return _json
 
 
 class Health:
@@ -1122,12 +1116,11 @@ class Health:
         self.status = status
         self.workdir = workdir
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['report'] = self.report.to_dict() if self.report else None
-
-        json_parser.recover_dict_keys(_dict, Health)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['report'] = self.report.to_json() if self.report else None
+        json_parser.recover_dict_keys(_json, Health)
+        return _json
 
 
 class HealthReport:
@@ -1142,11 +1135,10 @@ class HealthReport:
         self.proxys = proxys
         self.time = time
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, HealthReport)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, HealthReport)
+        return _json
 
 
 class HookFile:
@@ -1161,11 +1153,10 @@ class HookFile:
         self.size = size
         self.type = type
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, HookFile)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, HookFile)
+        return _json
 
 
 class JwksAuthProvider:
@@ -1178,13 +1169,12 @@ class JwksAuthProvider:
         self.jwksJson = json_parser.parse_dict_to_class(jwksJson, ConfigurationVariable)
         self.userInfoCacheTtlSeconds = userInfoCacheTtlSeconds
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['issuer'] = self.issuer.to_dict() if self.issuer else None
-        _dict['jwksJson'] = self.jwksJson.to_dict() if self.jwksJson else None
-
-        json_parser.recover_dict_keys(_dict, JwksAuthProvider)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['issuer'] = self.issuer.to_json() if self.issuer else None
+        _json['jwksJson'] = self.jwksJson.to_json() if self.jwksJson else None
+        json_parser.recover_dict_keys(_json, JwksAuthProvider)
+        return _json
 
 
 class JwksBasedAuthentication:
@@ -1193,12 +1183,11 @@ class JwksBasedAuthentication:
                  ):
         self.providers = json_parser.parse_list_to_class(providers, JwksAuthProvider)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['providers'] = [x.to_dict() for x in self.providers] if self.providers else None
-
-        json_parser.recover_dict_keys(_dict, JwksBasedAuthentication)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['providers'] = [x.to_json() for x in self.providers] if self.providers else None
+        json_parser.recover_dict_keys(_json, JwksBasedAuthentication)
+        return _json
 
 
 class JwtUpstreamAuthenticationConfig:
@@ -1209,12 +1198,11 @@ class JwtUpstreamAuthenticationConfig:
         self.secret = json_parser.parse_dict_to_class(secret, ConfigurationVariable)
         self.signingMethod = signingMethod
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['secret'] = self.secret.to_dict() if self.secret else None
-
-        json_parser.recover_dict_keys(_dict, JwtUpstreamAuthenticationConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['secret'] = self.secret.to_json() if self.secret else None
+        json_parser.recover_dict_keys(_json, JwtUpstreamAuthenticationConfig)
+        return _json
 
 
 class JwtUpstreamAuthenticationWithAccessTokenExchange:
@@ -1228,15 +1216,14 @@ class JwtUpstreamAuthenticationWithAccessTokenExchange:
         self.secret = json_parser.parse_dict_to_class(secret, ConfigurationVariable)
         self.signingMethod = signingMethod
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict[
-            'accessTokenExchangeEndpoint'] = self.accessTokenExchangeEndpoint.to_dict() if self.accessTokenExchangeEndpoint else None
-        _dict['secret'] = self.secret.to_dict() if self.secret else None
-        _dict['signingMethod'] = self.signingMethod.value if self.signingMethod else None
-
-        json_parser.recover_dict_keys(_dict, JwtUpstreamAuthenticationWithAccessTokenExchange)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json[
+            'accessTokenExchangeEndpoint'] = self.accessTokenExchangeEndpoint.to_json() if self.accessTokenExchangeEndpoint else None
+        _json['secret'] = self.secret.to_json() if self.secret else None
+        _json['signingMethod'] = self.signingMethod.value if self.signingMethod else None
+        json_parser.recover_dict_keys(_json, JwtUpstreamAuthenticationWithAccessTokenExchange)
+        return _json
 
 
 class ListenerOptions:
@@ -1247,13 +1234,12 @@ class ListenerOptions:
         self.host = json_parser.parse_dict_to_class(host, ConfigurationVariable)
         self.port = json_parser.parse_dict_to_class(port, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['host'] = self.host.to_dict() if self.host else None
-        _dict['port'] = self.port.to_dict() if self.port else None
-
-        json_parser.recover_dict_keys(_dict, ListenerOptions)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['host'] = self.host.to_json() if self.host else None
+        _json['port'] = self.port.to_json() if self.port else None
+        json_parser.recover_dict_keys(_json, ListenerOptions)
+        return _json
 
 
 class Location:
@@ -1264,11 +1250,10 @@ class Location:
         self.column = column
         self.line = line
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, Location)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, Location)
+        return _json
 
 
 class MTLSConfiguration:
@@ -1281,13 +1266,12 @@ class MTLSConfiguration:
         self.insecureSkipVerify = insecureSkipVerify
         self.key = json_parser.parse_dict_to_class(key, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['cert'] = self.cert.to_dict() if self.cert else None
-        _dict['key'] = self.key.to_dict() if self.key else None
-
-        json_parser.recover_dict_keys(_dict, MTLSConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['cert'] = self.cert.to_json() if self.cert else None
+        _json['key'] = self.key.to_json() if self.key else None
+        json_parser.recover_dict_keys(_json, MTLSConfiguration)
+        return _json
 
 
 class MiddlewareHookResponse:
@@ -1306,14 +1290,13 @@ class MiddlewareHookResponse:
         self.setClientRequestHeaders = json_parser.parse_dict_to_class(setClientRequestHeaders, RequestHeaders)
         self.error = error
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['hook'] = self.hook.value if self.hook else None
-        _dict[
-            'setClientRequestHeaders'] = self.setClientRequestHeaders.to_dict() if self.setClientRequestHeaders else None
-
-        json_parser.recover_dict_keys(_dict, MiddlewareHookResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['hook'] = self.hook.value if self.hook else None
+        _json[
+            'setClientRequestHeaders'] = self.setClientRequestHeaders.to_json() if self.setClientRequestHeaders else None
+        json_parser.recover_dict_keys(_json, MiddlewareHookResponse)
+        return _json
 
 
 class MockResolveHookConfiguration:
@@ -1324,11 +1307,10 @@ class MockResolveHookConfiguration:
         self.enabled = enabled
         self.subscriptionPollingIntervalMillis = subscriptionPollingIntervalMillis
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, MockResolveHookConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, MockResolveHookConfiguration)
+        return _json
 
 
 class MutatingPostAuthenticationResponse:
@@ -1341,12 +1323,11 @@ class MutatingPostAuthenticationResponse:
         self.status = status
         self.user = json_parser.parse_dict_to_class(user, User)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['user'] = self.user.to_dict() if self.user else None
-
-        json_parser.recover_dict_keys(_dict, MutatingPostAuthenticationResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['user'] = self.user.to_json() if self.user else None
+        json_parser.recover_dict_keys(_json, MutatingPostAuthenticationResponse)
+        return _json
 
 
 class NodeLogging:
@@ -1355,12 +1336,11 @@ class NodeLogging:
                  ):
         self.level = json_parser.parse_dict_to_class(level, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['level'] = self.level.to_dict() if self.level else None
-
-        json_parser.recover_dict_keys(_dict, NodeLogging)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['level'] = self.level.to_json() if self.level else None
+        json_parser.recover_dict_keys(_json, NodeLogging)
+        return _json
 
 
 class NodeOptions:
@@ -1377,15 +1357,14 @@ class NodeOptions:
         self.nodeUrl = json_parser.parse_dict_to_class(nodeUrl, ConfigurationVariable)
         self.publicNodeUrl = json_parser.parse_dict_to_class(publicNodeUrl, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['listen'] = self.listen.to_dict() if self.listen else None
-        _dict['logger'] = self.logger.to_dict() if self.logger else None
-        _dict['nodeUrl'] = self.nodeUrl.to_dict() if self.nodeUrl else None
-        _dict['publicNodeUrl'] = self.publicNodeUrl.to_dict() if self.publicNodeUrl else None
-
-        json_parser.recover_dict_keys(_dict, NodeOptions)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['listen'] = self.listen.to_json() if self.listen else None
+        _json['logger'] = self.logger.to_json() if self.logger else None
+        _json['nodeUrl'] = self.nodeUrl.to_json() if self.nodeUrl else None
+        _json['publicNodeUrl'] = self.publicNodeUrl.to_json() if self.publicNodeUrl else None
+        json_parser.recover_dict_keys(_json, NodeOptions)
+        return _json
 
 
 class OnRequestHookPayload:
@@ -1402,14 +1381,13 @@ class OnRequestHookPayload:
         self.request = json_parser.parse_dict_to_class(request, WunderGraphRequest)
         self.__wg = json_parser.parse_dict_to_class(__wg, BaseRequestBodyWg)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['operationType'] = self.operationType.value if self.operationType else None
-        _dict['request'] = self.request.to_dict() if self.request else None
-        _dict['__wg'] = self.__wg.to_dict() if self.__wg else None
-
-        json_parser.recover_dict_keys(_dict, OnRequestHookPayload)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['operationType'] = self.operationType.value if self.operationType else None
+        _json['request'] = self.request.to_json() if self.request else None
+        _json['__wg'] = self.__wg.to_json() if self.__wg else None
+        json_parser.recover_dict_keys(_json, OnRequestHookPayload)
+        return _json
 
 
 class OnRequestHookResponse:
@@ -1422,12 +1400,11 @@ class OnRequestHookResponse:
         self.request = json_parser.parse_dict_to_class(request, WunderGraphRequest)
         self.skip = skip
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['request'] = self.request.to_dict() if self.request else None
-
-        json_parser.recover_dict_keys(_dict, OnRequestHookResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['request'] = self.request.to_json() if self.request else None
+        json_parser.recover_dict_keys(_json, OnRequestHookResponse)
+        return _json
 
 
 class OnResponseHookPayload:
@@ -1442,14 +1419,13 @@ class OnResponseHookPayload:
         self.response = json_parser.parse_dict_to_class(response, WunderGraphResponse)
         self.__wg = json_parser.parse_dict_to_class(__wg, BaseRequestBodyWg)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['operationType'] = self.operationType.value if self.operationType else None
-        _dict['response'] = self.response.to_dict() if self.response else None
-        _dict['__wg'] = self.__wg.to_dict() if self.__wg else None
-
-        json_parser.recover_dict_keys(_dict, OnResponseHookPayload)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['operationType'] = self.operationType.value if self.operationType else None
+        _json['response'] = self.response.to_json() if self.response else None
+        _json['__wg'] = self.__wg.to_json() if self.__wg else None
+        json_parser.recover_dict_keys(_json, OnResponseHookPayload)
+        return _json
 
 
 class OnResponseHookResponse:
@@ -1462,12 +1438,11 @@ class OnResponseHookResponse:
         self.response = json_parser.parse_dict_to_class(response, WunderGraphResponse)
         self.skip = skip
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['response'] = self.response.to_dict() if self.response else None
-
-        json_parser.recover_dict_keys(_dict, OnResponseHookResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['response'] = self.response.to_json() if self.response else None
+        json_parser.recover_dict_keys(_json, OnResponseHookResponse)
+        return _json
 
 
 class OnWsConnectionInitHookPayload:
@@ -1478,12 +1453,11 @@ class OnWsConnectionInitHookPayload:
         self.dataSourceId = dataSourceId
         self.request = json_parser.parse_dict_to_class(request, WunderGraphRequest)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['request'] = self.request.to_dict() if self.request else None
-
-        json_parser.recover_dict_keys(_dict, OnWsConnectionInitHookPayload)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['request'] = self.request.to_json() if self.request else None
+        json_parser.recover_dict_keys(_json, OnWsConnectionInitHookPayload)
+        return _json
 
 
 class OnWsConnectionInitHookResponse:
@@ -1492,11 +1466,10 @@ class OnWsConnectionInitHookResponse:
                  ):
         self.payload = payload
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OnWsConnectionInitHookResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OnWsConnectionInitHookResponse)
+        return _json
 
 
 class OpenIDConnectAuthProviderConfig:
@@ -1511,15 +1484,14 @@ class OpenIDConnectAuthProviderConfig:
         self.issuer = json_parser.parse_dict_to_class(issuer, ConfigurationVariable)
         self.queryParameters = json_parser.parse_list_to_class(queryParameters, OpenIDConnectQueryParameter)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['clientId'] = self.clientId.to_dict() if self.clientId else None
-        _dict['clientSecret'] = self.clientSecret.to_dict() if self.clientSecret else None
-        _dict['issuer'] = self.issuer.to_dict() if self.issuer else None
-        _dict['queryParameters'] = [x.to_dict() for x in self.queryParameters] if self.queryParameters else None
-
-        json_parser.recover_dict_keys(_dict, OpenIDConnectAuthProviderConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['clientId'] = self.clientId.to_json() if self.clientId else None
+        _json['clientSecret'] = self.clientSecret.to_json() if self.clientSecret else None
+        _json['issuer'] = self.issuer.to_json() if self.issuer else None
+        _json['queryParameters'] = [x.to_json() for x in self.queryParameters] if self.queryParameters else None
+        json_parser.recover_dict_keys(_json, OpenIDConnectAuthProviderConfig)
+        return _json
 
 
 class OpenIDConnectQueryParameter:
@@ -1530,13 +1502,12 @@ class OpenIDConnectQueryParameter:
         self.name = json_parser.parse_dict_to_class(name, ConfigurationVariable)
         self.value = json_parser.parse_dict_to_class(value, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['name'] = self.name.to_dict() if self.name else None
-        _dict['value'] = self.value.to_dict() if self.value else None
-
-        json_parser.recover_dict_keys(_dict, OpenIDConnectQueryParameter)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['name'] = self.name.to_json() if self.name else None
+        _json['value'] = self.value.to_json() if self.value else None
+        json_parser.recover_dict_keys(_json, OpenIDConnectQueryParameter)
+        return _json
 
 
 class Operation:
@@ -1595,34 +1566,38 @@ class Operation:
         self.responseSchema = responseSchema
         self.variablesSchema = variablesSchema
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['authenticationConfig'] = self.authenticationConfig.to_dict() if self.authenticationConfig else None
-        _dict['authorizationConfig'] = self.authorizationConfig.to_dict() if self.authorizationConfig else None
-        _dict['cacheConfig'] = self.cacheConfig.to_dict() if self.cacheConfig else None
-        _dict['datasourceQuotes'] = self.datasourceQuotes.to_dict() if self.datasourceQuotes else None
-        _dict['engine'] = self.engine.value if self.engine else None
-        _dict['hooksConfiguration'] = self.hooksConfiguration.to_dict() if self.hooksConfiguration else None
-        _dict['liveQueryConfig'] = self.liveQueryConfig.to_dict() if self.liveQueryConfig else None
-        _dict['multipartForms'] = [x.to_dict() for x in self.multipartForms] if self.multipartForms else None
-        _dict['operationType'] = self.operationType.value if self.operationType else None
-        _dict['postResolveTransformations'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['authenticationConfig'] = self.authenticationConfig.to_json() if self.authenticationConfig else None
+        _json['authorizationConfig'] = self.authorizationConfig.to_json() if self.authorizationConfig else None
+        _json['cacheConfig'] = self.cacheConfig.to_json() if self.cacheConfig else None
+        _json['datasourceQuotes'] = self.datasourceQuotes.to_json() if self.datasourceQuotes else None
+        _json['engine'] = self.engine.value if self.engine else None
+        _json['hooksConfiguration'] = self.hooksConfiguration.to_json() if self.hooksConfiguration else None
+        _json['liveQueryConfig'] = self.liveQueryConfig.to_json() if self.liveQueryConfig else None
+        _json['multipartForms'] = [x.to_json() for x in self.multipartForms] if self.multipartForms else None
+        _json['operationType'] = self.operationType.value if self.operationType else None
+        _json['postResolveTransformations'] = [x.to_json() for x in
                                                self.postResolveTransformations] if self.postResolveTransformations else None
-        _dict['rateLimit'] = self.rateLimit.to_dict() if self.rateLimit else None
-        _dict['semaphore'] = self.semaphore.to_dict() if self.semaphore else None
-        _dict['transaction'] = self.transaction.to_dict() if self.transaction else None
-        _dict['variablesConfiguration'] = self.variablesConfiguration.to_dict() if self.variablesConfiguration else None
-
-        json_parser.recover_dict_keys(_dict, Operation)
-        return _dict
+        _json['rateLimit'] = self.rateLimit.to_json() if self.rateLimit else None
+        _json['semaphore'] = self.semaphore.to_json() if self.semaphore else None
+        _json['transaction'] = self.transaction.to_json() if self.transaction else None
+        _json['variablesConfiguration'] = self.variablesConfiguration.to_json() if self.variablesConfiguration else None
+        json_parser.recover_dict_keys(_json, Operation)
+        return _json
 
 
 class Operation_datasourceQuotes(dict[str, 'DatasourceQuote']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, DatasourceQuote)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, Operation_datasourceQuotes)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), DatasourceQuote) for k, v in _json.items()}
+        return _json
 
 
 class OperationAuthenticationConfig:
@@ -1631,11 +1606,10 @@ class OperationAuthenticationConfig:
                  ):
         self.authRequired = authRequired
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationAuthenticationConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationAuthenticationConfig)
+        return _json
 
 
 class OperationAuthorizationConfig:
@@ -1646,13 +1620,12 @@ class OperationAuthorizationConfig:
         self.claims = json_parser.parse_list_to_class(claims, ClaimConfig)
         self.roleConfig = json_parser.parse_dict_to_class(roleConfig, OperationRoleConfig)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['claims'] = [x.to_dict() for x in self.claims] if self.claims else None
-        _dict['roleConfig'] = self.roleConfig.to_dict() if self.roleConfig else None
-
-        json_parser.recover_dict_keys(_dict, OperationAuthorizationConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['claims'] = [x.to_json() for x in self.claims] if self.claims else None
+        _json['roleConfig'] = self.roleConfig.to_json() if self.roleConfig else None
+        json_parser.recover_dict_keys(_json, OperationAuthorizationConfig)
+        return _json
 
 
 class OperationCacheConfig:
@@ -1667,11 +1640,10 @@ class OperationCacheConfig:
         self.public = public
         self.staleWhileRevalidate = staleWhileRevalidate
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationCacheConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationCacheConfig)
+        return _json
 
 
 class OperationHookPayload:
@@ -1692,16 +1664,15 @@ class OperationHookPayload:
         self.setClientRequestHeaders = json_parser.parse_dict_to_class(setClientRequestHeaders, RequestHeaders)
         self.__wg = json_parser.parse_dict_to_class(__wg, BaseRequestBodyWg)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['hook'] = self.hook.value if self.hook else None
-        _dict['response'] = self.response.to_dict() if self.response else None
-        _dict[
-            'setClientRequestHeaders'] = self.setClientRequestHeaders.to_dict() if self.setClientRequestHeaders else None
-        _dict['__wg'] = self.__wg.to_dict() if self.__wg else None
-
-        json_parser.recover_dict_keys(_dict, OperationHookPayload)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['hook'] = self.hook.value if self.hook else None
+        _json['response'] = self.response.to_json() if self.response else None
+        _json[
+            'setClientRequestHeaders'] = self.setClientRequestHeaders.to_json() if self.setClientRequestHeaders else None
+        _json['__wg'] = self.__wg.to_json() if self.__wg else None
+        json_parser.recover_dict_keys(_json, OperationHookPayload)
+        return _json
 
 
 class OperationHookPayload_response:
@@ -1712,12 +1683,11 @@ class OperationHookPayload_response:
         self.data = data
         self.errors = json_parser.parse_list_to_class(errors, RequestError)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['errors'] = [x.to_dict() for x in self.errors] if self.errors else None
-
-        json_parser.recover_dict_keys(_dict, OperationHookPayload_response)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['errors'] = [x.to_json() for x in self.errors] if self.errors else None
+        json_parser.recover_dict_keys(_json, OperationHookPayload_response)
+        return _json
 
 
 class OperationHooksConfiguration:
@@ -1746,12 +1716,11 @@ class OperationHooksConfiguration:
         self.postResolve = postResolve
         self.preResolve = preResolve
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['mockResolve'] = self.mockResolve.to_dict() if self.mockResolve else None
-
-        json_parser.recover_dict_keys(_dict, OperationHooksConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['mockResolve'] = self.mockResolve.to_json() if self.mockResolve else None
+        json_parser.recover_dict_keys(_json, OperationHooksConfiguration)
+        return _json
 
 
 class OperationLiveQueryConfig:
@@ -1762,11 +1731,10 @@ class OperationLiveQueryConfig:
         self.enabled = enabled
         self.pollingIntervalSeconds = pollingIntervalSeconds
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationLiveQueryConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationLiveQueryConfig)
+        return _json
 
 
 class OperationMultipartForm:
@@ -1777,11 +1745,10 @@ class OperationMultipartForm:
         self.fieldName = fieldName
         self.isArray = isArray
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationMultipartForm)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationMultipartForm)
+        return _json
 
 
 class OperationRateLimit:
@@ -1794,11 +1761,10 @@ class OperationRateLimit:
         self.perSecond = perSecond
         self.requests = requests
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationRateLimit)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationRateLimit)
+        return _json
 
 
 class OperationRoleConfig:
@@ -1813,11 +1779,10 @@ class OperationRoleConfig:
         self.requireMatchAll = requireMatchAll
         self.requireMatchAny = requireMatchAny
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationRoleConfig)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationRoleConfig)
+        return _json
 
 
 class OperationSemaphore:
@@ -1830,11 +1795,10 @@ class OperationSemaphore:
         self.tickets = tickets
         self.timeoutSeconds = timeoutSeconds
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationSemaphore)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationSemaphore)
+        return _json
 
 
 class OperationTransaction:
@@ -1847,11 +1811,10 @@ class OperationTransaction:
         self.maxWaitSeconds = maxWaitSeconds
         self.timeoutSeconds = timeoutSeconds
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, OperationTransaction)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, OperationTransaction)
+        return _json
 
 
 class OperationVariablesConfiguration:
@@ -1862,13 +1825,12 @@ class OperationVariablesConfiguration:
         self.injectVariables = json_parser.parse_list_to_class(injectVariables, VariableInjectionConfiguration)
         self.whereInputs = json_parser.parse_list_to_class(whereInputs, VariableWhereInputConfiguration)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['injectVariables'] = [x.to_dict() for x in self.injectVariables] if self.injectVariables else None
-        _dict['whereInputs'] = [x.to_dict() for x in self.whereInputs] if self.whereInputs else None
-
-        json_parser.recover_dict_keys(_dict, OperationVariablesConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['injectVariables'] = [x.to_json() for x in self.injectVariables] if self.injectVariables else None
+        _json['whereInputs'] = [x.to_json() for x in self.whereInputs] if self.whereInputs else None
+        json_parser.recover_dict_keys(_json, OperationVariablesConfiguration)
+        return _json
 
 
 class PostResolveGetTransformation:
@@ -1879,11 +1841,10 @@ class PostResolveGetTransformation:
         self.from_ = from_
         self.to = to
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, PostResolveGetTransformation)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, PostResolveGetTransformation)
+        return _json
 
 
 class PostResolveTransformation:
@@ -1896,13 +1857,12 @@ class PostResolveTransformation:
         self.get = json_parser.parse_dict_to_class(get, PostResolveGetTransformation)
         self.kind = kind
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['get'] = self.get.to_dict() if self.get else None
-        _dict['kind'] = self.kind.value if self.kind else None
-
-        json_parser.recover_dict_keys(_dict, PostResolveTransformation)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['get'] = self.get.to_json() if self.get else None
+        _json['kind'] = self.kind.value if self.kind else None
+        json_parser.recover_dict_keys(_json, PostResolveTransformation)
+        return _json
 
 
 class QuoteField:
@@ -1911,11 +1871,10 @@ class QuoteField:
                  ):
         self.indexes = indexes
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, QuoteField)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, QuoteField)
+        return _json
 
 
 class RESTSubscriptionConfiguration:
@@ -1930,11 +1889,10 @@ class RESTSubscriptionConfiguration:
         self.skipPublishSameResponse = skipPublishSameResponse
         self.doneData = doneData
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, RESTSubscriptionConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, RESTSubscriptionConfiguration)
+        return _json
 
 
 class RequestError:
@@ -1947,20 +1905,21 @@ class RequestError:
         self.path = path
         self.locations = json_parser.parse_list_to_class(locations, Location)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['locations'] = [x.to_dict() for x in self.locations] if self.locations else None
-
-        json_parser.recover_dict_keys(_dict, RequestError)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['locations'] = [x.to_json() for x in self.locations] if self.locations else None
+        json_parser.recover_dict_keys(_json, RequestError)
+        return _json
 
 
 class RequestHeaders(dict[str, str]):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, RequestHeaders)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        return _json
 
 
 class S3UploadConfiguration:
@@ -1983,25 +1942,29 @@ class S3UploadConfiguration:
         self.uploadProfiles = json_parser.parse_dict_to_class(uploadProfiles, S3UploadConfiguration_uploadProfiles)
         self.useSSL = useSSL
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['accessKeyID'] = self.accessKeyID.to_dict() if self.accessKeyID else None
-        _dict['bucketLocation'] = self.bucketLocation.to_dict() if self.bucketLocation else None
-        _dict['bucketName'] = self.bucketName.to_dict() if self.bucketName else None
-        _dict['endpoint'] = self.endpoint.to_dict() if self.endpoint else None
-        _dict['secretAccessKey'] = self.secretAccessKey.to_dict() if self.secretAccessKey else None
-        _dict['uploadProfiles'] = self.uploadProfiles.to_dict() if self.uploadProfiles else None
-
-        json_parser.recover_dict_keys(_dict, S3UploadConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['accessKeyID'] = self.accessKeyID.to_json() if self.accessKeyID else None
+        _json['bucketLocation'] = self.bucketLocation.to_json() if self.bucketLocation else None
+        _json['bucketName'] = self.bucketName.to_json() if self.bucketName else None
+        _json['endpoint'] = self.endpoint.to_json() if self.endpoint else None
+        _json['secretAccessKey'] = self.secretAccessKey.to_json() if self.secretAccessKey else None
+        _json['uploadProfiles'] = self.uploadProfiles.to_json() if self.uploadProfiles else None
+        json_parser.recover_dict_keys(_json, S3UploadConfiguration)
+        return _json
 
 
 class S3UploadConfiguration_uploadProfiles(dict[str, 'S3UploadProfile']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, S3UploadProfile)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, S3UploadConfiguration_uploadProfiles)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), S3UploadProfile) for k, v in _json.items()}
+        return _json
 
 
 class S3UploadProfile:
@@ -2022,12 +1985,11 @@ class S3UploadProfile:
         self.metadataJSONSchema = metadataJSONSchema
         self.requireAuthentication = requireAuthentication
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['hooks'] = self.hooks.to_dict() if self.hooks else None
-
-        json_parser.recover_dict_keys(_dict, S3UploadProfile)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['hooks'] = self.hooks.to_json() if self.hooks else None
+        json_parser.recover_dict_keys(_json, S3UploadProfile)
+        return _json
 
 
 class S3UploadProfileHooksConfiguration:
@@ -2038,11 +2000,10 @@ class S3UploadProfileHooksConfiguration:
         self.postUpload = postUpload
         self.preUpload = preUpload
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, S3UploadProfileHooksConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, S3UploadProfileHooksConfiguration)
+        return _json
 
 
 class ServerLogging:
@@ -2051,12 +2012,11 @@ class ServerLogging:
                  ):
         self.level = json_parser.parse_dict_to_class(level, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['level'] = self.level.to_dict() if self.level else None
-
-        json_parser.recover_dict_keys(_dict, ServerLogging)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['level'] = self.level.to_json() if self.level else None
+        json_parser.recover_dict_keys(_json, ServerLogging)
+        return _json
 
 
 class ServerOptions:
@@ -2069,14 +2029,13 @@ class ServerOptions:
         self.logger = json_parser.parse_dict_to_class(logger, ServerLogging)
         self.serverUrl = json_parser.parse_dict_to_class(serverUrl, ConfigurationVariable)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['listen'] = self.listen.to_dict() if self.listen else None
-        _dict['logger'] = self.logger.to_dict() if self.logger else None
-        _dict['serverUrl'] = self.serverUrl.to_dict() if self.serverUrl else None
-
-        json_parser.recover_dict_keys(_dict, ServerOptions)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['listen'] = self.listen.to_json() if self.listen else None
+        _json['logger'] = self.logger.to_json() if self.logger else None
+        _json['serverUrl'] = self.serverUrl.to_json() if self.serverUrl else None
+        json_parser.recover_dict_keys(_json, ServerOptions)
+        return _json
 
 
 class SingleTypeField:
@@ -2087,11 +2046,10 @@ class SingleTypeField:
         self.fieldName = fieldName
         self.typeName = typeName
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, SingleTypeField)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, SingleTypeField)
+        return _json
 
 
 class StatusCodeTypeMapping:
@@ -2104,11 +2062,10 @@ class StatusCodeTypeMapping:
         self.statusCode = statusCode
         self.typeName = typeName
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, StatusCodeTypeMapping)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, StatusCodeTypeMapping)
+        return _json
 
 
 class TypeConfiguration:
@@ -2119,11 +2076,10 @@ class TypeConfiguration:
         self.renameTo = renameTo
         self.typeName = typeName
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, TypeConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, TypeConfiguration)
+        return _json
 
 
 class TypeField:
@@ -2136,20 +2092,24 @@ class TypeField:
         self.typeName = typeName
         self.quotes = json_parser.parse_dict_to_class(quotes, TypeField_quotes)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['quotes'] = self.quotes.to_dict() if self.quotes else None
-
-        json_parser.recover_dict_keys(_dict, TypeField)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['quotes'] = self.quotes.to_json() if self.quotes else None
+        json_parser.recover_dict_keys(_json, TypeField)
+        return _json
 
 
 class TypeField_quotes(dict[str, 'QuoteField']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k, v in self.items():
+            self[k] = json_parser.parse_dict_to_class(v, QuoteField)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, TypeField_quotes)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        _json = {k: json_parser.recover_dict_keys(v.to_json(), QuoteField) for k, v in _json.items()}
+        return _json
 
 
 class URLQueryConfiguration:
@@ -2160,11 +2120,10 @@ class URLQueryConfiguration:
         self.name = name
         self.value = value
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, URLQueryConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, URLQueryConfiguration)
+        return _json
 
 
 class UploadHookPayload:
@@ -2179,14 +2138,13 @@ class UploadHookPayload:
         self.meta = meta
         self.__wg = json_parser.parse_dict_to_class(__wg, BaseRequestBodyWg)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['error'] = self.error.to_dict() if self.error else None
-        _dict['file'] = self.file.to_dict() if self.file else None
-        _dict['__wg'] = self.__wg.to_dict() if self.__wg else None
-
-        json_parser.recover_dict_keys(_dict, UploadHookPayload)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['error'] = self.error.to_json() if self.error else None
+        _json['file'] = self.file.to_json() if self.file else None
+        _json['__wg'] = self.__wg.to_json() if self.__wg else None
+        json_parser.recover_dict_keys(_json, UploadHookPayload)
+        return _json
 
 
 class UploadHookPayload_error:
@@ -2197,11 +2155,10 @@ class UploadHookPayload_error:
         self.message = message
         self.name = name
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, UploadHookPayload_error)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, UploadHookPayload_error)
+        return _json
 
 
 class UploadHookResponse:
@@ -2212,11 +2169,10 @@ class UploadHookResponse:
         self.error = error
         self.fileKey = fileKey
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, UploadHookResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, UploadHookResponse)
+        return _json
 
 
 class UploadedFile:
@@ -2225,19 +2181,24 @@ class UploadedFile:
                  ):
         self.key = key
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-
-        json_parser.recover_dict_keys(_dict, UploadedFile)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        json_parser.recover_dict_keys(_json, UploadedFile)
+        return _json
 
 
 class UploadedFiles(list['UploadedFile']):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        for k in range(len(self)):
+            self[k] = json_parser.parse_dict_to_class(self[k], UploadedFile)
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, UploadedFiles)
-        return _dict
+    def to_json(self) -> list:
+        _json = self
+
+        _json = [json_parser.recover_dict_keys(x.to_json(), UploadedFile) for x in _json]
+
+        return _json
 
 
 class UpstreamAuthentication:
@@ -2251,15 +2212,14 @@ class UpstreamAuthentication:
                                                                                 JwtUpstreamAuthenticationWithAccessTokenExchange)
         self.kind = kind
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['jwtConfig'] = self.jwtConfig.to_dict() if self.jwtConfig else None
-        _dict[
-            'jwtWithAccessTokenExchangeConfig'] = self.jwtWithAccessTokenExchangeConfig.to_dict() if self.jwtWithAccessTokenExchangeConfig else None
-        _dict['kind'] = self.kind.value if self.kind else None
-
-        json_parser.recover_dict_keys(_dict, UpstreamAuthentication)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['jwtConfig'] = self.jwtConfig.to_json() if self.jwtConfig else None
+        _json[
+            'jwtWithAccessTokenExchangeConfig'] = self.jwtWithAccessTokenExchangeConfig.to_json() if self.jwtWithAccessTokenExchangeConfig else None
+        _json['kind'] = self.kind.value if self.kind else None
+        json_parser.recover_dict_keys(_json, UpstreamAuthentication)
+        return _json
 
 
 class User:
@@ -2322,20 +2282,21 @@ class User:
         self.website = website
         self.zoneInfo = zoneInfo
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['customClaims'] = self.customClaims.to_dict() if self.customClaims else None
-
-        json_parser.recover_dict_keys(_dict, User)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['customClaims'] = self.customClaims.to_json() if self.customClaims else None
+        json_parser.recover_dict_keys(_json, User)
+        return _json
 
 
 class User_customClaims(dict[str, object]):
-    def to_dict(self) -> dict:
-        _dict = self
+    def __init__(self):
+        super().__init__()
 
-        json_parser.recover_dict_keys(_dict, User_customClaims)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self
+
+        return _json
 
 
 class UserDefinedApi:
@@ -2364,21 +2325,20 @@ class UserDefinedApi:
         self.serverOptions = json_parser.parse_dict_to_class(serverOptions, ServerOptions)
         self.webhooks = json_parser.parse_list_to_class(webhooks, WebhookConfiguration)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['allowedHostNames'] = [x.to_dict() for x in self.allowedHostNames] if self.allowedHostNames else None
-        _dict['authenticationConfig'] = self.authenticationConfig.to_dict() if self.authenticationConfig else None
-        _dict['corsConfiguration'] = self.corsConfiguration.to_dict() if self.corsConfiguration else None
-        _dict['engineConfiguration'] = self.engineConfiguration.to_dict() if self.engineConfiguration else None
-        _dict['nodeOptions'] = self.nodeOptions.to_dict() if self.nodeOptions else None
-        _dict['operations'] = [x.to_dict() for x in self.operations] if self.operations else None
-        _dict['s3UploadConfiguration'] = [x.to_dict() for x in
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['allowedHostNames'] = [x.to_json() for x in self.allowedHostNames] if self.allowedHostNames else None
+        _json['authenticationConfig'] = self.authenticationConfig.to_json() if self.authenticationConfig else None
+        _json['corsConfiguration'] = self.corsConfiguration.to_json() if self.corsConfiguration else None
+        _json['engineConfiguration'] = self.engineConfiguration.to_json() if self.engineConfiguration else None
+        _json['nodeOptions'] = self.nodeOptions.to_json() if self.nodeOptions else None
+        _json['operations'] = [x.to_json() for x in self.operations] if self.operations else None
+        _json['s3UploadConfiguration'] = [x.to_json() for x in
                                           self.s3UploadConfiguration] if self.s3UploadConfiguration else None
-        _dict['serverOptions'] = self.serverOptions.to_dict() if self.serverOptions else None
-        _dict['webhooks'] = [x.to_dict() for x in self.webhooks] if self.webhooks else None
-
-        json_parser.recover_dict_keys(_dict, UserDefinedApi)
-        return _dict
+        _json['serverOptions'] = self.serverOptions.to_json() if self.serverOptions else None
+        _json['webhooks'] = [x.to_json() for x in self.webhooks] if self.webhooks else None
+        json_parser.recover_dict_keys(_json, UserDefinedApi)
+        return _json
 
 
 class VariableInjectionConfiguration:
@@ -2403,13 +2363,12 @@ class VariableInjectionConfiguration:
         self.fromHeaderName = fromHeaderName
         self.ruleExpression = ruleExpression
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['variableKind'] = self.variableKind.value if self.variableKind else None
-        _dict['dateOffset'] = self.dateOffset.to_dict() if self.dateOffset else None
-
-        json_parser.recover_dict_keys(_dict, VariableInjectionConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['variableKind'] = self.variableKind.value if self.variableKind else None
+        _json['dateOffset'] = self.dateOffset.to_json() if self.dateOffset else None
+        json_parser.recover_dict_keys(_json, VariableInjectionConfiguration)
+        return _json
 
 
 class VariableWhereInput:
@@ -2420,13 +2379,12 @@ class VariableWhereInput:
         self.filter = json_parser.parse_dict_to_class(filter, VariableWhereInputFilter)
         self.not_ = json_parser.parse_dict_to_class(not_, VariableWhereInput)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['filter'] = self.filter.to_dict() if self.filter else None
-        _dict['not_'] = self.not_.to_dict() if self.not_ else None
-
-        json_parser.recover_dict_keys(_dict, VariableWhereInput)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['filter'] = self.filter.to_json() if self.filter else None
+        _json['not_'] = self.not_.to_json() if self.not_ else None
+        json_parser.recover_dict_keys(_json, VariableWhereInput)
+        return _json
 
 
 class VariableWhereInputConfiguration:
@@ -2437,12 +2395,11 @@ class VariableWhereInputConfiguration:
         self.variablePathComponents = variablePathComponents
         self.whereInput = json_parser.parse_dict_to_class(whereInput, VariableWhereInput)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['whereInput'] = self.whereInput.to_dict() if self.whereInput else None
-
-        json_parser.recover_dict_keys(_dict, VariableWhereInputConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['whereInput'] = self.whereInput.to_json() if self.whereInput else None
+        json_parser.recover_dict_keys(_json, VariableWhereInputConfiguration)
+        return _json
 
 
 class VariableWhereInputFilter:
@@ -2455,13 +2412,12 @@ class VariableWhereInputFilter:
         self.relation = json_parser.parse_dict_to_class(relation, VariableWhereInputRelationFilter)
         self.scalar = json_parser.parse_dict_to_class(scalar, VariableWhereInputScalarFilter)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['relation'] = self.relation.to_dict() if self.relation else None
-        _dict['scalar'] = self.scalar.to_dict() if self.scalar else None
-
-        json_parser.recover_dict_keys(_dict, VariableWhereInputFilter)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['relation'] = self.relation.to_json() if self.relation else None
+        _json['scalar'] = self.scalar.to_json() if self.scalar else None
+        json_parser.recover_dict_keys(_json, VariableWhereInputFilter)
+        return _json
 
 
 class VariableWhereInputRelationFilter:
@@ -2472,13 +2428,12 @@ class VariableWhereInputRelationFilter:
         self.type = type
         self.where = json_parser.parse_dict_to_class(where, VariableWhereInput)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['type'] = self.type.value if self.type else None
-        _dict['where'] = self.where.to_dict() if self.where else None
-
-        json_parser.recover_dict_keys(_dict, VariableWhereInputRelationFilter)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['type'] = self.type.value if self.type else None
+        _json['where'] = self.where.to_json() if self.where else None
+        json_parser.recover_dict_keys(_json, VariableWhereInputRelationFilter)
+        return _json
 
 
 class VariableWhereInputScalarFilter:
@@ -2489,12 +2444,11 @@ class VariableWhereInputScalarFilter:
         self.insensitive = insensitive
         self.type = type
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['type'] = self.type.value if self.type else None
-
-        json_parser.recover_dict_keys(_dict, VariableWhereInputScalarFilter)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['type'] = self.type.value if self.type else None
+        json_parser.recover_dict_keys(_json, VariableWhereInputScalarFilter)
+        return _json
 
 
 class WebhookConfiguration:
@@ -2507,12 +2461,11 @@ class WebhookConfiguration:
         self.name = name
         self.verifier = json_parser.parse_dict_to_class(verifier, WebhookVerifier)
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['verifier'] = self.verifier.to_dict() if self.verifier else None
-
-        json_parser.recover_dict_keys(_dict, WebhookConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['verifier'] = self.verifier.to_json() if self.verifier else None
+        json_parser.recover_dict_keys(_json, WebhookConfiguration)
+        return _json
 
 
 class WebhookVerifier:
@@ -2527,13 +2480,12 @@ class WebhookVerifier:
         self.signatureHeader = signatureHeader
         self.signatureHeaderPrefix = signatureHeaderPrefix
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['kind'] = self.kind.value if self.kind else None
-        _dict['secret'] = self.secret.to_dict() if self.secret else None
-
-        json_parser.recover_dict_keys(_dict, WebhookVerifier)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['kind'] = self.kind.value if self.kind else None
+        _json['secret'] = self.secret.to_json() if self.secret else None
+        json_parser.recover_dict_keys(_json, WebhookVerifier)
+        return _json
 
 
 class WunderGraphConfiguration:
@@ -2552,12 +2504,11 @@ class WunderGraphConfiguration:
         self.deploymentName = deploymentName
         self.environmentIds = environmentIds
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['api'] = self.api.to_dict() if self.api else None
-
-        json_parser.recover_dict_keys(_dict, WunderGraphConfiguration)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['api'] = self.api.to_json() if self.api else None
+        json_parser.recover_dict_keys(_json, WunderGraphConfiguration)
+        return _json
 
 
 class WunderGraphRequest:
@@ -2574,12 +2525,11 @@ class WunderGraphRequest:
         self.body = body
         self.originBody = originBody
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['headers'] = self.headers.to_dict() if self.headers else None
-
-        json_parser.recover_dict_keys(_dict, WunderGraphRequest)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['headers'] = self.headers.to_json() if self.headers else None
+        json_parser.recover_dict_keys(_json, WunderGraphRequest)
+        return _json
 
 
 class WunderGraphResponse:
@@ -2600,12 +2550,11 @@ class WunderGraphResponse:
         self.body = body
         self.originBody = originBody
 
-    def to_dict(self) -> dict:
-        _dict = self.__dict__.copy()
-        _dict['headers'] = self.headers.to_dict() if self.headers else None
-
-        json_parser.recover_dict_keys(_dict, WunderGraphResponse)
-        return _dict
+    def to_json(self) -> dict:
+        _json = self.__dict__.copy()
+        _json['headers'] = self.headers.to_json() if self.headers else None
+        json_parser.recover_dict_keys(_json, WunderGraphResponse)
+        return _json
 
 
 def register_init_parameter_renames():

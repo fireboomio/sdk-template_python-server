@@ -24,8 +24,8 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
             output_data = module.func(request_ctx)
             return types_request.make_json_response(types_models.MiddlewareHookResponse(
                 hook=types_models_ext.get_enum_by_value(types_models.MiddlewareHook, module.name),
-                response=output_data.to_dict() if output_data else {},
-                setClientRequestHeaders=request_ctx.internal_client.clientRequest.headers.to_dict()
+                response=output_data.to_json() if output_data else {},
+                setClientRequestHeaders=request_ctx.internal_client.clientRequest.headers.to_json()
             ))
         except Exception as e:
             return types_request.make_hook_error_response(e)
