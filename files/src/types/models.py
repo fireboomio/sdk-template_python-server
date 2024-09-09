@@ -505,8 +505,8 @@ class CustomizeHookPayload:
 
 
 class CustomizeHookPayload_variables(dict[str, object]):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -533,8 +533,8 @@ class CustomizeHookResponse:
 
 
 class CustomizeHookResponse_extensions(dict[str, object]):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -599,10 +599,10 @@ class DataSourceConfiguration:
 
 
 class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, DataSourceCustom_REST)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -612,10 +612,10 @@ class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
 
 
 class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -626,10 +626,10 @@ class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSource
 
 
 class DataSourceConfiguration_customRestResponseRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -822,8 +822,8 @@ class DataSourceRESTRewriter:
 
 
 class DataSourceRESTRewriter_applySubCommonFieldValues(dict[str, str]):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -832,8 +832,8 @@ class DataSourceRESTRewriter_applySubCommonFieldValues(dict[str, str]):
 
 
 class DataSourceRESTRewriter_valueRewrites(dict[str, str]):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -996,10 +996,10 @@ class FetchConfiguration:
 
 
 class FetchConfiguration_header(dict[str, 'HTTPHeader']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, HTTPHeader)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -1588,10 +1588,10 @@ class Operation:
 
 
 class Operation_datasourceQuotes(dict[str, 'DatasourceQuote']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, DatasourceQuote)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -1913,8 +1913,8 @@ class RequestError:
 
 
 class RequestHeaders(dict[str, str]):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -1955,10 +1955,10 @@ class S3UploadConfiguration:
 
 
 class S3UploadConfiguration_uploadProfiles(dict[str, 'S3UploadProfile']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, S3UploadProfile)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -2100,10 +2100,10 @@ class TypeField:
 
 
 class TypeField_quotes(dict[str, 'QuoteField']):
-    def __init__(self):
+    def __init__(self, *args):
         for k, v in self.items():
             self[k] = json_parser.parse_dict_to_class(v, QuoteField)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self
@@ -2188,10 +2188,10 @@ class UploadedFile:
 
 
 class UploadedFiles(list['UploadedFile']):
-    def __init__(self):
+    def __init__(self, *args):
         for k in range(len(self)):
             self[k] = json_parser.parse_dict_to_class(self[k], UploadedFile)
-        super().__init__()
+        super().__init__(*args)
 
     def to_json(self) -> list:
         _json = self
@@ -2290,8 +2290,8 @@ class User:
 
 
 class User_customClaims(dict[str, object]):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def to_json(self) -> dict:
         _json = self

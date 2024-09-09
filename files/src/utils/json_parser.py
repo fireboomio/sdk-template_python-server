@@ -44,7 +44,7 @@ def json_dumps(obj: object) -> str:
         obj = obj.to_json()
     if isinstance(obj, dict):
         obj = filter_null_keys(obj)
-    return json.dumps(obj, default=filter_null_keys)
+    return json.dumps(obj, default=filter_null_keys, ensure_ascii=False)
 
 
 _json_encoder = DjangoJSONEncoder(default=lambda x: x)

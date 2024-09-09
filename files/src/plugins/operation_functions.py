@@ -2,14 +2,14 @@ import json
 import os
 from typing import Callable, Optional, Type
 
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponseBase
 from pydantic import BaseModel
 
 from custom_py.src.types import models as types_models, request as types_request, models_extension as types_models_ext
 from custom_py.src.utils import json_parser
 
 
-def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponse]]:
+def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponseBase]]:
     operation_path = os.path.join(module.folder, module.name)
     i_cls_name = module.name + "_input"
     o_cls_name = module.name + "_output"
@@ -25,7 +25,7 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
         operation_path.removeprefix(types_models.HookParent.function.value + "/"))
     types_models_ext.rewrite_operation_json_file(operation_path, get_json_schema_str(i_cls), get_json_schema_str(o_cls))
 
-    def wrapper(request: HttpRequest) -> HttpResponse:
+    def wrapper(request: HttpRequest) -> HttpResponseBase:
         if request.method != "POST":
             return types_request.make_hook_error_response("Method {} Not Allowed".format(request.method))
         try:
@@ -34,7 +34,7 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
                                                          types_models_ext.OperationHookPayload)
             input_data.input = json_parser.parse_dict_to_class(input_data.input, i_cls)
             input_data.op = operation_path
-            output_data = module.func(request_ctx, input_data)
+            output_data = module.attr(request_ctx, input_data)
             return types_request.make_json_response(output_data.to_json() if output_data else {})
         except Exception as e:
             return types_request.make_hook_error_response(e)

@@ -4,7 +4,7 @@ import os
 import time
 from typing import Callable, Optional, Union
 
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
 from django.urls import path
 
 from custom_py.src.types import models as types_models
@@ -93,16 +93,18 @@ urlpatterns = [path("health", healthy)]
 
 
 class register_module:
-    def __init__(self, folder: str, name: str, func: callable, import_):
+    def __init__(self, folder: str, name: str, url: str, attr: callable, import_):
         self.folder = folder
         self.name = name
-        self.func = func
+        self.url = url
+        self.attr = attr
         self.import_ = import_
 
 
 def register_views(folder: str,
-                   handler: Callable[[register_module], Optional[Callable[[HttpRequest], HttpResponse]]],
-                   allowed_hooks: list[str] = None, join_center: str = None):
+                   handler: Callable[[register_module], Optional[Callable[[HttpRequest], HttpResponseBase]]],
+                   allowed_hooks: list[str] = None,
+                   attr_name_suffix: str = ""):
     if not os.path.isdir(folder):
         return
     for item in os.listdir(folder):
@@ -116,13 +118,15 @@ def register_views(folder: str,
         if allowed_hooks is not None and item_without_ext not in allowed_hooks:
             continue
         item_module = importlib.import_module(item_path.removesuffix(".py").replace('/', '.'), package=".")
-        if not hasattr(item_module, item_without_ext):
+        if not hasattr(item_module, item_without_ext+attr_name_suffix):
             continue
-        item_prefix = os.path.join(folder, join_center) if join_center is not None else folder
-        item_url = os.path.join(item_prefix, item).removesuffix(".py")
-        handler_func = handler(register_module(folder, item_without_ext,
-                                               getattr(item_module, item_without_ext), item_module))
+        item_url = os.path.join(folder, item).removesuffix(".py")
+        item_attr = getattr(item_module, item_without_ext+attr_name_suffix)
+        item_register_module = register_module(folder, item_without_ext, item_url, item_attr, item_module)
+        handler_func = handler(item_register_module)
         if handler_func is None:
             continue
-        urlpatterns.append(path(item_url, handler_func))
-        print(f"registered {item_url}")
+
+        item_register_module.url = item_register_module.url.removeprefix("/")
+        urlpatterns.append(path(item_register_module.url, handler_func))
+        print(f"registered {item_register_module.url}")

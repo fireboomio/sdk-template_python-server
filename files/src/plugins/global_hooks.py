@@ -1,7 +1,7 @@
 import json
 from typing import Callable, Optional
 
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponseBase
 
 from custom_py.src.types import models as types_models, request as types_request
 from custom_py.src.types import models_extension as types_models_ext
@@ -18,19 +18,19 @@ global_hook_input_classes = {
 }
 
 
-def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponse]]:
+def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponseBase]]:
     input_class = global_hook_input_classes.get(module.name)
     if input_class is None:
         print(f"Module {module.name} Not Support")
         return None
 
-    def wrapper(request: HttpRequest) -> HttpResponse:
+    def wrapper(request: HttpRequest) -> HttpResponseBase:
         if request.method != "POST":
             return types_request.make_hook_error_response("Method {} Not Allowed".format(request.method))
         try:
             request_ctx = types_request.make_base_request_context(request)
             input_data = json_parser.parse_dict_to_class(json.loads(request.body), input_class)
-            output_data = module.func(request_ctx, input_data)
+            output_data = module.attr(request_ctx, input_data)
             return types_request.make_json_response(types_models.MiddlewareHookResponse(
                 op=input_data.operationName,
                 hook=types_models_ext.get_enum_by_value(types_models.MiddlewareHook, module.name),
