@@ -1,0 +1,13 @@
+from custom_py.src.plugins import upload_client
+
+
+{{#each s3Providers}}
+upload_client_{{name}} = upload_client.upload_client(name="{{name}}")
+{{/each}}
+
+{{#each s3Providers}}{{#if uploadProfiles}}
+class upload_profile_{{name}}:
+{{#each uploadProfiles as |profile key|}}
+    {{key}}: str = "{{key}}"
+{{/each}}
+{{/if}}{{/each}}

@@ -16,7 +16,7 @@ hooks = [
 def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponse]]:
     def wrapper(request: HttpRequest) -> HttpResponse:
         if request.method != "POST":
-            return types_request.make_hook_error_response("Method %s Not Allowed".format(request.method))
+            return types_request.make_hook_error_response("Method {} Not Allowed".format(request.method))
         try:
             request_ctx = types_request.make_base_request_context(request)
             if request_ctx.internal_client.user is None:

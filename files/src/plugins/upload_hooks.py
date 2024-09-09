@@ -25,7 +25,7 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
 
     def wrapper(request: HttpRequest) -> HttpResponse:
         if request.method != "POST":
-            return types_request.make_hook_error_response("Method %s Not Allowed".format(request.method))
+            return types_request.make_hook_error_response("Method {} Not Allowed".format(request.method))
         try:
             request_ctx = types_request.make_base_request_context(request)
             input_data = json_parser.parse_dict_to_class(json.loads(request.body),

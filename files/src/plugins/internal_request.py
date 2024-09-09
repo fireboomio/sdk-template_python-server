@@ -37,7 +37,7 @@ class internal_operation(Generic[I, O]):
         request_headers["content-type"] = "application/json"
         response = requests.post(url=internal_url, data=json_parser.json_dumps(request_data), headers=request_headers)
         if response.status_code != 200:
-            raise Exception(response.text)
+            raise Exception(response.reason)
         response_data = json_parser.parse_dict_to_class(response.json(), types_models.OperationHookPayload_response)
         if response_data.errors and len(response_data.errors) > 0:
             raise Exception(response_data.errors[0].message)
