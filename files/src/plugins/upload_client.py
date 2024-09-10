@@ -36,7 +36,7 @@ class upload_client(types_models.S3UploadConfiguration):
         return (types_config.node_private_url
                 + types_models.InternalEndpoint.s3upload.value.replace("{provider}", self.name))
 
-    def upload(self, parameter: upload_parameter) -> list[types_models.UploadedFile]:
+    def upload(self, parameter: upload_parameter) -> types_models.UploadedFiles:
         files = [("file", (x.name, x.file)) for x in parameter.files]
         query_params = {}
         if parameter.directory:
@@ -56,7 +56,7 @@ class upload_client(types_models.S3UploadConfiguration):
         response = requests.post(internal_url, files=files, headers=request_headers)
         if response.status_code != 200:
             raise Exception(response.reason)
-        return json_parser.parse_list_to_class(response.json(), types_models.UploadedFile)
+        return json_parser.parse_list_to_class(response.json(), types_models.UploadedFiles)
 
     def get_oss_url(self, key: str) -> str:
         if not self.bucketName or not self.endpoint:

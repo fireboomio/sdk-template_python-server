@@ -31,11 +31,13 @@ def parse_dict_to_class(_dict: Union[dict, str, T], _cls: Type[T]) -> Optional[T
     return _cls(**rename_dict_keys(_dict, _cls)) if isinstance(_dict, dict) else _dict
 
 
-def parse_list_to_class(_list: Union[list[Union[dict, T]], str], _cls: Type[T]) -> Optional[list[T]]:
+def parse_list_to_class(_list: Union[list[Union[dict, T]], str], _cls: Type[T]) -> Optional[Union[list[T], T]]:
     if _list is None:
         return None
     if isinstance(_list, str):
         _list = json.loads(_list)
+    if not hasattr(_cls, "__origin__") and issubclass(_cls, list):
+        return _cls(_list)
     return [_cls(**rename_dict_keys(y, _cls)) if isinstance(y, dict) else y for y in _list]
 
 
