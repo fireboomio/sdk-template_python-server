@@ -22,7 +22,7 @@ class {{name}}(Enum):
 {{/if}}class {{joinString '_' documentPath~}}
     {{~#if additional}}({{#equal typeName 'array'}}list[{{else}}dict[str, {{/equal~}}
     {{#with additional}}{{~> field_type this=this}}]){{/with}}{{/if}}:
-    def __init__(self{{#unless fields}}){{else}},
+    def __init__(self{{#unless fields}}{{#if additional}}, *args, **kwargs{{/if}}){{else}},
                 {{#each fields}} {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if~}}
                 : {{#unless required}}Optional[{{/unless}}{{#if isArray}}list[{{/if}}
                 {{~> field_type this=this~}}
@@ -30,10 +30,9 @@ class {{name}}(Enum):
                 {{/each}}){{/unless}}:
         {{#if additional~}}
         {{#with additional.typeRefObject}}
-        for k{{#unless (equalAny ../typeName 'array')}}, v{{/unless}} in {{#equal ../typeName 'array'~}}range(len(self)){{else}}self.items(){{/equal}}:
-            self[k] = json_parser.parse_dict_to_class({{#equal ../typeName 'array'~}}self[k]{{else}}v{{/equal}}, {{joinString '_' documentPath}})
+        args = [json_parser.parse_dict_to_class(arg[k], {{joinString '_' documentPath}}) for arg in args for k in arg]
         {{/with}}
-        super().__init__()
+        super().__init__(*args, **kwargs)
         {{/if}}
         {{#unless fields}}{{#unless additional}}pass{{/unless}}
         {{~else}}{{#each fields}}{{#if description}}"""{{description}}"""
