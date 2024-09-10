@@ -69,3 +69,4 @@ def register_init_parameter_renames():
 {{~#each objectFieldArray}}{{#with (filterFieldsByKeywords fields sdk.keywords)}}
     json_parser.init_parameter_renames[{{joinString '_' ../documentPath}}] = [{{#each this}}json_parser.init_parameter_rename('{{name}}', '{{name}}_'){{#unless @last}}, {{/unless}}{{/each}}]
 {{~/with}}{{/each}}
+    return

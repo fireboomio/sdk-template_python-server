@@ -2554,3 +2554,4 @@ def register_init_parameter_renames():
     json_parser.init_parameter_renames[PostResolveGetTransformation] = [
         json_parser.init_parameter_rename('from', 'from_')]
     json_parser.init_parameter_renames[VariableWhereInput] = [json_parser.init_parameter_rename('not', 'not_')]
+    return
