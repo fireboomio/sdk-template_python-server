@@ -599,7 +599,7 @@ class DataSourceConfiguration:
 
 class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], DataSourceCustom_REST) for arg in args for k in arg]
+        args = tuple([{k: json_parser.parse_dict_to_class(v, DataSourceCustom_REST) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -611,7 +611,8 @@ class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
 
 class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], DataSourceCustom_REST_Rewriter) for arg in args for k in arg]
+        args = tuple(
+            [{k: json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -624,7 +625,8 @@ class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSource
 
 class DataSourceConfiguration_customRestResponseRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], DataSourceCustom_REST_Rewriter) for arg in args for k in arg]
+        args = tuple(
+            [{k: json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -993,7 +995,7 @@ class FetchConfiguration:
 
 class FetchConfiguration_header(dict[str, 'HTTPHeader']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], HTTPHeader) for arg in args for k in arg]
+        args = tuple([{k: json_parser.parse_dict_to_class(v, HTTPHeader) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -1584,7 +1586,7 @@ class Operation:
 
 class Operation_datasourceQuotes(dict[str, 'DatasourceQuote']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], DatasourceQuote) for arg in args for k in arg]
+        args = tuple([{k: json_parser.parse_dict_to_class(v, DatasourceQuote) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -1950,7 +1952,7 @@ class S3UploadConfiguration:
 
 class S3UploadConfiguration_uploadProfiles(dict[str, 'S3UploadProfile']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], S3UploadProfile) for arg in args for k in arg]
+        args = tuple([{k: json_parser.parse_dict_to_class(v, S3UploadProfile) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -2094,7 +2096,7 @@ class TypeField:
 
 class TypeField_quotes(dict[str, 'QuoteField']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], QuoteField) for arg in args for k in arg]
+        args = tuple([{k: json_parser.parse_dict_to_class(v, QuoteField) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> dict:
@@ -2181,7 +2183,7 @@ class UploadedFile:
 
 class UploadedFiles(list['UploadedFile']):
     def __init__(self, *args, **kwargs):
-        args = [json_parser.parse_dict_to_class(arg[k], UploadedFile) for arg in args for k in arg]
+        args = tuple([[json_parser.parse_dict_to_class(v, UploadedFile) for v in arg] for arg in args])
         super().__init__(*args, **kwargs)
 
     def to_json(self) -> list:

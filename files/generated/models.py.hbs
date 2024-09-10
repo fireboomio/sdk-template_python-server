@@ -30,7 +30,10 @@ class {{name}}(Enum):
                 {{/each}}){{/unless}}:
         {{#if additional~}}
         {{#with additional.typeRefObject}}
-        args = [json_parser.parse_dict_to_class(arg[k], {{joinString '_' documentPath}}) for arg in args for k in arg]
+        args = tuple([{{#equal ../typeName 'array'}}[{{else}}{k: {{/equal~}}
+            json_parser.parse_dict_to_class(v, {{joinString '_' documentPath}}) for {{#unless (equalAny ../typeName 'array')}}k, {{/unless}}v in arg
+            {{~#equal ../typeName 'array'}}]{{else~}}
+            }{{/equal}} for arg in args])
         {{/with}}
         super().__init__(*args, **kwargs)
         {{/if}}
