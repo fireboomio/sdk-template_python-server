@@ -24,6 +24,8 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
         print(f"Module {module.name} Not Support")
         return None
 
+    module.url = types_models.Endpoint[module.name].value
+
     def wrapper(request: HttpRequest) -> HttpResponseBase:
         if request.method != "POST":
             return types_request.make_hook_error_response("Method {} Not Allowed".format(request.method))
