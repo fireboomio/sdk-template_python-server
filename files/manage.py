@@ -7,6 +7,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    sys.path.append(os.path.dirname(os.getcwd()))
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sdk_python.settings')
     try:
         importlib.import_module('custom_py.generated', package=".")
