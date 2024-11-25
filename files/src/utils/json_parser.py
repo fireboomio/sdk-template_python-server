@@ -3,21 +3,6 @@ from typing import TypeVar, Type, Union, Callable, Optional
 
 from django.core.serializers.json import DjangoJSONEncoder
 
-
-class init_parameter_rename:
-    def __init__(self,
-                 _from: str,
-                 _to: str):
-        self._from = _from
-        self._to = _to
-
-    def get_from(self):
-        return self._from
-
-    def get_to(self):
-        return self._to
-
-
 T = TypeVar('T')
 
 
