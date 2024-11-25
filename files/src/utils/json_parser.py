@@ -18,8 +18,6 @@ class init_parameter_rename:
         return self._to
 
 
-init_parameter_renames = {}
-
 T = TypeVar('T')
 
 
@@ -63,7 +61,7 @@ def filter_null_keys(obj):
 def rename_dict_keys(_dict: dict, _cls: Type[T]) -> dict:
     if not hasattr(_cls, "__origin__") and issubclass(_cls, dict):
         return _dict
-    _dict = _rewrite_dict_keys(_dict, _cls, lambda x: x.get_from(), lambda x: x.get_to())
+    _dict = _rewrite_dict_keys(_dict, _cls)
     cls_fields = get_class_fields(_cls)
     return {k: v for k, v in _dict.items() if k in cls_fields}
 
@@ -73,17 +71,14 @@ def get_class_fields(_cls: Type[T]) -> list[str]:
 
 
 def recover_dict_keys(_dict: dict, _cls: Type[T]) -> dict:
-    return _rewrite_dict_keys(_dict, _cls, lambda x: x.get_to(), lambda x: x.get_from())
+    return _rewrite_dict_keys(_dict, _cls, reverse=True)
 
 
-def _rewrite_dict_keys(_dict: dict, _cls: Type[T],
-                       _from_func: Callable[[init_parameter_rename], str],
-                       _to_func: Callable[[init_parameter_rename], str]) -> dict:
-    if _cls not in init_parameter_renames:
-        return _dict
-    for rename in init_parameter_renames[_cls]:
-        _from = _from_func(rename)
-        if _from not in _dict:
-            continue
-        _dict[_to_func(rename)] = _dict.pop(_from)
+def _rewrite_dict_keys(_dict: dict, _cls: Type[T], reverse: bool = False) -> dict:
+    field_aliases = getattr(_cls, '_field_aliases', {})
+    if reverse:
+        field_aliases = {v: k for k, v in field_aliases.items()}
+    for k, v in field_aliases.items():
+        if k in _dict:
+            _dict[v] = _dict.pop(k)
     return _dict

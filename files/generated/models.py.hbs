@@ -22,6 +22,9 @@ class {{name}}(Enum):
 {{/if}}class {{joinString '_' documentPath~}}
     {{~#if additional}}({{#equal typeName 'array'}}list[{{else}}dict[str, {{/equal~}}
     {{#with additional}}{{~> field_type this=this}}]){{/with}}{{/if}}:
+    {{#with (filterFieldsByKeywords fields sdk.keywords)}}_field_aliases = {
+        {{#each this}}'{{name}}': '{{name}}_'{{#unless @last}}, {{/unless}}{{/each}}
+    }{{/with}}
     def __init__(self{{#unless fields}}{{#if additional}}, *args, **kwargs{{/if}}){{else}},
                 {{#each fields}} {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if~}}
                 : {{#unless required}}Optional[{{/unless}}{{#if isArray}}list[{{/if}}
@@ -64,9 +67,3 @@ class {{name}}(Enum):
         return _json
     {{/if}}
 {{/each}}
-
-def register_init_parameter_renames():
-{{~#each objectFieldArray}}{{#with (filterFieldsByKeywords fields sdk.keywords)}}
-    json_parser.init_parameter_renames[{{joinString '_' ../documentPath}}] = [{{#each this}}json_parser.init_parameter_rename('{{name}}', '{{name}}_'){{#unless @last}}, {{/unless}}{{/each}}]
-{{~/with}}{{/each}}
-    return

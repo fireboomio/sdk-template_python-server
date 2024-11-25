@@ -1,7 +1,8 @@
+from datetime import datetime
 from enum import Enum
 from typing import Optional
+
 from custom_py.src.utils import json_parser
-from datetime import datetime
 
 
 class ArgumentRenderConfiguration(Enum):
@@ -261,6 +262,7 @@ class WebhookVerifierKind(Enum):
 
 
 class ApiAuthenticationConfig:
+
     def __init__(self,
                  cookieBased: 'CookieBasedAuthentication' = None,
                  hooks: 'ApiAuthenticationHooks' = None,
@@ -282,6 +284,7 @@ class ApiAuthenticationConfig:
 
 
 class ApiAuthenticationHooks:
+
     def __init__(self,
                  mutatingPostAuthentication: bool = None,
                  postAuthentication: bool = None,
@@ -300,6 +303,7 @@ class ApiAuthenticationHooks:
 
 
 class ArgumentConfiguration:
+
     def __init__(self,
                  name: str = None,
                  renameTypeTo: str = None,
@@ -322,6 +326,7 @@ class ArgumentConfiguration:
 
 
 class AuthProvider:
+
     def __init__(self,
                  githubConfig: 'GithubAuthProviderConfig' = None,
                  id: str = None,
@@ -343,6 +348,7 @@ class AuthProvider:
 
 
 class BaseRequestBody:
+
     def __init__(self,
                  __wg: Optional['BaseRequestBodyWg'] = None
                  ):
@@ -356,6 +362,7 @@ class BaseRequestBody:
 
 
 class BaseRequestBodyWg:
+
     def __init__(self,
                  clientRequest: 'WunderGraphRequest' = None,
                  user: 'User' = None
@@ -372,6 +379,7 @@ class BaseRequestBodyWg:
 
 
 class ClaimConfig:
+
     def __init__(self,
                  claimType: ClaimType = None,
                  custom: 'CustomClaim' = None,
@@ -390,6 +398,7 @@ class ClaimConfig:
 
 
 class ConfigurationVariable:
+
     def __init__(self,
                  kind: ConfigurationVariableKind = None,
                  environmentVariableDefaultValue: Optional[str] = None,
@@ -411,6 +420,7 @@ class ConfigurationVariable:
 
 
 class CookieBasedAuthentication:
+
     def __init__(self,
                  authorizedRedirectUriRegexes: list['ConfigurationVariable'] = None,
                  authorizedRedirectUris: list['ConfigurationVariable'] = None,
@@ -442,6 +452,7 @@ class CookieBasedAuthentication:
 
 
 class CorsConfiguration:
+
     def __init__(self,
                  allowCredentials: bool = None,
                  allowedHeaders: list[str] = None,
@@ -465,6 +476,7 @@ class CorsConfiguration:
 
 
 class CustomClaim:
+
     def __init__(self,
                  jsonPathComponents: list[str] = None,
                  name: str = None,
@@ -484,6 +496,7 @@ class CustomClaim:
 
 
 class CustomizeHookPayload:
+
     def __init__(self,
                  operationName: str = None,
                  query: str = None,
@@ -504,6 +517,7 @@ class CustomizeHookPayload:
 
 
 class CustomizeHookPayload_variables(dict[str, object]):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -514,6 +528,7 @@ class CustomizeHookPayload_variables(dict[str, object]):
 
 
 class CustomizeHookResponse:
+
     def __init__(self,
                  data: object = None,
                  errors: list['RequestError'] = None,
@@ -532,6 +547,7 @@ class CustomizeHookResponse:
 
 
 class CustomizeHookResponse_extensions(dict[str, object]):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -542,6 +558,7 @@ class CustomizeHookResponse_extensions(dict[str, object]):
 
 
 class DataSourceConfiguration:
+
     def __init__(self,
                  childNodes: list['TypeField'] = None,
                  customDatabase: 'DataSourceCustom_Database' = None,
@@ -598,6 +615,7 @@ class DataSourceConfiguration:
 
 
 class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
+
     def __init__(self, *args, **kwargs):
         args = tuple([{k: json_parser.parse_dict_to_class(v, DataSourceCustom_REST) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
@@ -610,6 +628,7 @@ class DataSourceConfiguration_customRestMap(dict[str, 'DataSourceCustom_REST']):
 
 
 class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
+
     def __init__(self, *args, **kwargs):
         args = tuple(
             [{k: json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter) for k, v in arg} for arg in args])
@@ -624,6 +643,7 @@ class DataSourceConfiguration_customRestRequestRewriterMap(dict[str, 'DataSource
 
 
 class DataSourceConfiguration_customRestResponseRewriterMap(dict[str, 'DataSourceCustom_REST_Rewriter']):
+
     def __init__(self, *args, **kwargs):
         args = tuple(
             [{k: json_parser.parse_dict_to_class(v, DataSourceCustom_REST_Rewriter) for k, v in arg} for arg in args])
@@ -638,6 +658,7 @@ class DataSourceConfiguration_customRestResponseRewriterMap(dict[str, 'DataSourc
 
 
 class DataSourceCustom_Database:
+
     def __init__(self,
                  closeTimeoutSeconds: int = None,
                  databaseURL: 'ConfigurationVariable' = None,
@@ -664,6 +685,7 @@ class DataSourceCustom_Database:
 
 
 class DataSourceCustom_GraphQL:
+
     def __init__(self,
                  customScalarTypeFields: list['SingleTypeField'] = None,
                  federation: 'GraphQLFederationConfiguration' = None,
@@ -693,6 +715,7 @@ class DataSourceCustom_GraphQL:
 
 
 class DataSourceCustom_REST:
+
     def __init__(self,
                  defaultTypeName: str = None,
                  fetch: 'FetchConfiguration' = None,
@@ -724,6 +747,7 @@ class DataSourceCustom_REST:
 
 
 class DataSourceCustom_REST_Rewriter:
+
     def __init__(self,
                  rewriters: list['DataSourceRESTRewriter'] = None
                  ):
@@ -737,6 +761,7 @@ class DataSourceCustom_REST_Rewriter:
 
 
 class DataSourceCustom_Static:
+
     def __init__(self,
                  data: 'ConfigurationVariable' = None
                  ):
@@ -750,6 +775,7 @@ class DataSourceCustom_Static:
 
 
 class DataSourceRESTResponseExtractor:
+
     def __init__(self,
                  errorMessageJsonpath: str = None,
                  statusCodeJsonpath: str = None,
@@ -767,6 +793,7 @@ class DataSourceRESTResponseExtractor:
 
 
 class DataSourceRESTResponseStatusCodeScope:
+
     def __init__(self,
                  max: int = None,
                  min: int = None
@@ -781,6 +808,7 @@ class DataSourceRESTResponseStatusCodeScope:
 
 
 class DataSourceRESTRewriter:
+
     def __init__(self,
                  pathComponents: list[str] = None,
                  type: int = None,
@@ -820,6 +848,7 @@ class DataSourceRESTRewriter:
 
 
 class DataSourceRESTRewriter_applySubCommonFieldValues(dict[str, str]):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -830,6 +859,7 @@ class DataSourceRESTRewriter_applySubCommonFieldValues(dict[str, str]):
 
 
 class DataSourceRESTRewriter_valueRewrites(dict[str, str]):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -840,6 +870,7 @@ class DataSourceRESTRewriter_valueRewrites(dict[str, str]):
 
 
 class DataSourceRESTSubObject:
+
     def __init__(self,
                  fields: list['DataSourceRESTSubfield'] = None,
                  name: str = None
@@ -855,6 +886,7 @@ class DataSourceRESTSubObject:
 
 
 class DataSourceRESTSubfield:
+
     def __init__(self,
                  name: str = None,
                  type: int = None
@@ -869,6 +901,7 @@ class DataSourceRESTSubfield:
 
 
 class DatasourceQuote:
+
     def __init__(self,
                  fields: list[str] = None
                  ):
@@ -881,6 +914,7 @@ class DatasourceQuote:
 
 
 class DateOffset:
+
     def __init__(self,
                  previous: bool = None,
                  unit: DateOffsetUnit = None,
@@ -900,6 +934,7 @@ class DateOffset:
 
 
 class DirectiveConfiguration:
+
     def __init__(self,
                  directiveName: str = None,
                  renameTo: str = None
@@ -914,6 +949,7 @@ class DirectiveConfiguration:
 
 
 class EngineConfiguration:
+
     def __init__(self,
                  datasourceConfigurations: list['DataSourceConfiguration'] = None,
                  defaultFlushInterval: int = None,
@@ -941,6 +977,7 @@ class EngineConfiguration:
 
 
 class ErrorPath:
+
     def __init__(self):
         pass
 
@@ -951,6 +988,7 @@ class ErrorPath:
 
 
 class FetchConfiguration:
+
     def __init__(self,
                  baseUrl: 'ConfigurationVariable' = None,
                  body: 'ConfigurationVariable' = None,
@@ -994,6 +1032,7 @@ class FetchConfiguration:
 
 
 class FetchConfiguration_header(dict[str, 'HTTPHeader']):
+
     def __init__(self, *args, **kwargs):
         args = tuple([{k: json_parser.parse_dict_to_class(v, HTTPHeader) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
@@ -1006,6 +1045,7 @@ class FetchConfiguration_header(dict[str, 'HTTPHeader']):
 
 
 class FieldConfiguration:
+
     def __init__(self,
                  argumentsConfiguration: list['ArgumentConfiguration'] = None,
                  disableDefaultFieldMapping: bool = None,
@@ -1032,6 +1072,7 @@ class FieldConfiguration:
 
 
 class GithubAuthProviderConfig:
+
     def __init__(self,
                  clientId: 'ConfigurationVariable' = None,
                  clientSecret: 'ConfigurationVariable' = None
@@ -1048,6 +1089,7 @@ class GithubAuthProviderConfig:
 
 
 class GraphQLDataSourceHooksConfiguration:
+
     def __init__(self,
                  onWSTransportConnectionInit: bool = None
                  ):
@@ -1060,6 +1102,7 @@ class GraphQLDataSourceHooksConfiguration:
 
 
 class GraphQLFederationConfiguration:
+
     def __init__(self,
                  enabled: bool = None,
                  serviceSdl: str = None
@@ -1074,6 +1117,7 @@ class GraphQLFederationConfiguration:
 
 
 class GraphQLSubscriptionConfiguration:
+
     def __init__(self,
                  enabled: bool = None,
                  url: 'ConfigurationVariable' = None,
@@ -1091,6 +1135,7 @@ class GraphQLSubscriptionConfiguration:
 
 
 class HTTPHeader:
+
     def __init__(self,
                  values: list['ConfigurationVariable'] = None
                  ):
@@ -1104,6 +1149,7 @@ class HTTPHeader:
 
 
 class Health:
+
     def __init__(self,
                  report: 'HealthReport' = None,
                  status: str = None,
@@ -1121,6 +1167,7 @@ class Health:
 
 
 class HealthReport:
+
     def __init__(self,
                  customizes: list[str] = None,
                  functions: list[str] = None,
@@ -1139,6 +1186,7 @@ class HealthReport:
 
 
 class HookFile:
+
     def __init__(self,
                  name: str = None,
                  provider: str = None,
@@ -1157,6 +1205,7 @@ class HookFile:
 
 
 class JwksAuthProvider:
+
     def __init__(self,
                  issuer: 'ConfigurationVariable' = None,
                  jwksJson: 'ConfigurationVariable' = None,
@@ -1175,6 +1224,7 @@ class JwksAuthProvider:
 
 
 class JwksBasedAuthentication:
+
     def __init__(self,
                  providers: list['JwksAuthProvider'] = None
                  ):
@@ -1188,6 +1238,7 @@ class JwksBasedAuthentication:
 
 
 class JwtUpstreamAuthenticationConfig:
+
     def __init__(self,
                  secret: 'ConfigurationVariable' = None,
                  signingMethod: int = None
@@ -1203,6 +1254,7 @@ class JwtUpstreamAuthenticationConfig:
 
 
 class JwtUpstreamAuthenticationWithAccessTokenExchange:
+
     def __init__(self,
                  accessTokenExchangeEndpoint: 'ConfigurationVariable' = None,
                  secret: 'ConfigurationVariable' = None,
@@ -1224,6 +1276,7 @@ class JwtUpstreamAuthenticationWithAccessTokenExchange:
 
 
 class ListenerOptions:
+
     def __init__(self,
                  host: 'ConfigurationVariable' = None,
                  port: 'ConfigurationVariable' = None
@@ -1240,6 +1293,7 @@ class ListenerOptions:
 
 
 class Location:
+
     def __init__(self,
                  column: int = None,
                  line: int = None
@@ -1254,6 +1308,7 @@ class Location:
 
 
 class MTLSConfiguration:
+
     def __init__(self,
                  cert: 'ConfigurationVariable' = None,
                  insecureSkipVerify: bool = None,
@@ -1272,6 +1327,7 @@ class MTLSConfiguration:
 
 
 class MiddlewareHookResponse:
+
     def __init__(self,
                  hook: MiddlewareHook = None,
                  input: object = None,
@@ -1297,6 +1353,7 @@ class MiddlewareHookResponse:
 
 
 class MockResolveHookConfiguration:
+
     def __init__(self,
                  enabled: bool = None,
                  subscriptionPollingIntervalMillis: int = None
@@ -1311,6 +1368,7 @@ class MockResolveHookConfiguration:
 
 
 class MutatingPostAuthenticationResponse:
+
     def __init__(self,
                  message: str = None,
                  status: str = None,
@@ -1328,6 +1386,7 @@ class MutatingPostAuthenticationResponse:
 
 
 class NodeLogging:
+
     def __init__(self,
                  level: 'ConfigurationVariable' = None
                  ):
@@ -1341,6 +1400,7 @@ class NodeLogging:
 
 
 class NodeOptions:
+
     def __init__(self,
                  defaultRequestTimeoutSeconds: int = None,
                  listen: 'ListenerOptions' = None,
@@ -1365,6 +1425,7 @@ class NodeOptions:
 
 
 class OnRequestHookPayload:
+
     def __init__(self,
                  argsAllowList: list[str] = None,
                  operationName: str = None,
@@ -1388,6 +1449,7 @@ class OnRequestHookPayload:
 
 
 class OnRequestHookResponse:
+
     def __init__(self,
                  cancel: bool = None,
                  request: 'WunderGraphRequest' = None,
@@ -1405,6 +1467,7 @@ class OnRequestHookResponse:
 
 
 class OnResponseHookPayload:
+
     def __init__(self,
                  operationName: str = None,
                  operationType: OperationTypeString = None,
@@ -1426,6 +1489,7 @@ class OnResponseHookPayload:
 
 
 class OnResponseHookResponse:
+
     def __init__(self,
                  cancel: bool = None,
                  response: 'WunderGraphResponse' = None,
@@ -1443,6 +1507,7 @@ class OnResponseHookResponse:
 
 
 class OnWsConnectionInitHookPayload:
+
     def __init__(self,
                  dataSourceId: str = None,
                  request: 'WunderGraphRequest' = None
@@ -1458,6 +1523,7 @@ class OnWsConnectionInitHookPayload:
 
 
 class OnWsConnectionInitHookResponse:
+
     def __init__(self,
                  payload: object = None
                  ):
@@ -1470,6 +1536,7 @@ class OnWsConnectionInitHookResponse:
 
 
 class OpenIDConnectAuthProviderConfig:
+
     def __init__(self,
                  clientId: 'ConfigurationVariable' = None,
                  clientSecret: 'ConfigurationVariable' = None,
@@ -1492,6 +1559,7 @@ class OpenIDConnectAuthProviderConfig:
 
 
 class OpenIDConnectQueryParameter:
+
     def __init__(self,
                  name: 'ConfigurationVariable' = None,
                  value: 'ConfigurationVariable' = None
@@ -1508,6 +1576,7 @@ class OpenIDConnectQueryParameter:
 
 
 class Operation:
+
     def __init__(self,
                  authenticationConfig: 'OperationAuthenticationConfig' = None,
                  authorizationConfig: 'OperationAuthorizationConfig' = None,
@@ -1515,6 +1584,7 @@ class Operation:
                  content: str = None,
                  datasourceQuotes: 'Operation_datasourceQuotes' = None,
                  engine: OperationExecutionEngine = None,
+                 graphqlTransformEnabled: bool = None,
                  hooksConfiguration: 'OperationHooksConfiguration' = None,
                  internal: bool = None,
                  liveQueryConfig: 'OperationLiveQueryConfig' = None,
@@ -1541,6 +1611,7 @@ class Operation:
         self.content = content
         self.datasourceQuotes = json_parser.parse_dict_to_class(datasourceQuotes, Operation_datasourceQuotes)
         self.engine = engine
+        self.graphqlTransformEnabled = graphqlTransformEnabled
         self.hooksConfiguration = json_parser.parse_dict_to_class(hooksConfiguration, OperationHooksConfiguration)
         self.internal = internal
         self.liveQueryConfig = json_parser.parse_dict_to_class(liveQueryConfig, OperationLiveQueryConfig)
@@ -1585,6 +1656,7 @@ class Operation:
 
 
 class Operation_datasourceQuotes(dict[str, 'DatasourceQuote']):
+
     def __init__(self, *args, **kwargs):
         args = tuple([{k: json_parser.parse_dict_to_class(v, DatasourceQuote) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
@@ -1597,6 +1669,7 @@ class Operation_datasourceQuotes(dict[str, 'DatasourceQuote']):
 
 
 class OperationAuthenticationConfig:
+
     def __init__(self,
                  authRequired: bool = None
                  ):
@@ -1609,6 +1682,7 @@ class OperationAuthenticationConfig:
 
 
 class OperationAuthorizationConfig:
+
     def __init__(self,
                  claims: list['ClaimConfig'] = None,
                  roleConfig: 'OperationRoleConfig' = None
@@ -1625,6 +1699,7 @@ class OperationAuthorizationConfig:
 
 
 class OperationCacheConfig:
+
     def __init__(self,
                  enabled: bool = None,
                  maxAge: int = None,
@@ -1643,6 +1718,7 @@ class OperationCacheConfig:
 
 
 class OperationHookPayload:
+
     def __init__(self,
                  canceled: bool = None,
                  hook: MiddlewareHook = None,
@@ -1672,6 +1748,7 @@ class OperationHookPayload:
 
 
 class OperationHookPayload_response:
+
     def __init__(self,
                  data: object = None,
                  errors: list['RequestError'] = None
@@ -1687,6 +1764,7 @@ class OperationHookPayload_response:
 
 
 class OperationHooksConfiguration:
+
     def __init__(self,
                  customResolve: bool = None,
                  httpTransportAfterResponse: bool = None,
@@ -1720,6 +1798,7 @@ class OperationHooksConfiguration:
 
 
 class OperationLiveQueryConfig:
+
     def __init__(self,
                  enabled: bool = None,
                  pollingIntervalSeconds: int = None
@@ -1734,6 +1813,7 @@ class OperationLiveQueryConfig:
 
 
 class OperationMultipartForm:
+
     def __init__(self,
                  fieldName: str = None,
                  isArray: bool = None
@@ -1748,6 +1828,7 @@ class OperationMultipartForm:
 
 
 class OperationRateLimit:
+
     def __init__(self,
                  enabled: bool = None,
                  perSecond: int = None,
@@ -1764,6 +1845,7 @@ class OperationRateLimit:
 
 
 class OperationRoleConfig:
+
     def __init__(self,
                  denyMatchAll: list[str] = None,
                  denyMatchAny: list[str] = None,
@@ -1782,6 +1864,7 @@ class OperationRoleConfig:
 
 
 class OperationSemaphore:
+
     def __init__(self,
                  enabled: bool = None,
                  tickets: int = None,
@@ -1798,6 +1881,7 @@ class OperationSemaphore:
 
 
 class OperationTransaction:
+
     def __init__(self,
                  isolationLevel: int = None,
                  maxWaitSeconds: int = None,
@@ -1814,6 +1898,7 @@ class OperationTransaction:
 
 
 class OperationVariablesConfiguration:
+
     def __init__(self,
                  injectVariables: list['VariableInjectionConfiguration'] = None,
                  whereInputs: list['VariableWhereInputConfiguration'] = None
@@ -1830,6 +1915,10 @@ class OperationVariablesConfiguration:
 
 
 class PostResolveGetTransformation:
+    _field_aliases = {
+        'from': 'from_'
+    }
+
     def __init__(self,
                  from_: list[str] = None,
                  to: list[str] = None
@@ -1844,14 +1933,17 @@ class PostResolveGetTransformation:
 
 
 class PostResolveTransformation:
+
     def __init__(self,
                  depth: int = None,
                  get: 'PostResolveGetTransformation' = None,
-                 kind: PostResolveTransformationKind = None
+                 kind: PostResolveTransformationKind = None,
+                 math: int = None
                  ):
         self.depth = depth
         self.get = json_parser.parse_dict_to_class(get, PostResolveGetTransformation)
         self.kind = kind
+        self.math = math
 
     def to_json(self) -> dict:
         _json = self.__dict__.copy()
@@ -1862,6 +1954,7 @@ class PostResolveTransformation:
 
 
 class QuoteField:
+
     def __init__(self,
                  indexes: list[int] = None
                  ):
@@ -1874,6 +1967,7 @@ class QuoteField:
 
 
 class RESTSubscriptionConfiguration:
+
     def __init__(self,
                  enabled: bool = None,
                  pollingIntervalMillis: int = None,
@@ -1892,6 +1986,7 @@ class RESTSubscriptionConfiguration:
 
 
 class RequestError:
+
     def __init__(self,
                  message: str = None,
                  path: list[str] = None,
@@ -1909,6 +2004,7 @@ class RequestError:
 
 
 class RequestHeaders(dict[str, str]):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -1919,6 +2015,7 @@ class RequestHeaders(dict[str, str]):
 
 
 class S3UploadConfiguration:
+
     def __init__(self,
                  accessKeyID: 'ConfigurationVariable' = None,
                  bucketLocation: 'ConfigurationVariable' = None,
@@ -1951,6 +2048,7 @@ class S3UploadConfiguration:
 
 
 class S3UploadConfiguration_uploadProfiles(dict[str, 'S3UploadProfile']):
+
     def __init__(self, *args, **kwargs):
         args = tuple([{k: json_parser.parse_dict_to_class(v, S3UploadProfile) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
@@ -1963,6 +2061,7 @@ class S3UploadConfiguration_uploadProfiles(dict[str, 'S3UploadProfile']):
 
 
 class S3UploadProfile:
+
     def __init__(self,
                  allowedFileExtensions: list[str] = None,
                  allowedMimeTypes: list[str] = None,
@@ -1988,6 +2087,7 @@ class S3UploadProfile:
 
 
 class S3UploadProfileHooksConfiguration:
+
     def __init__(self,
                  postUpload: bool = None,
                  preUpload: bool = None
@@ -2002,6 +2102,7 @@ class S3UploadProfileHooksConfiguration:
 
 
 class ServerLogging:
+
     def __init__(self,
                  level: 'ConfigurationVariable' = None
                  ):
@@ -2015,6 +2116,7 @@ class ServerLogging:
 
 
 class ServerOptions:
+
     def __init__(self,
                  listen: 'ListenerOptions' = None,
                  logger: 'ServerLogging' = None,
@@ -2034,6 +2136,7 @@ class ServerOptions:
 
 
 class SingleTypeField:
+
     def __init__(self,
                  fieldName: str = None,
                  typeName: str = None
@@ -2048,6 +2151,7 @@ class SingleTypeField:
 
 
 class StatusCodeTypeMapping:
+
     def __init__(self,
                  injectStatusCodeIntoBody: bool = None,
                  statusCode: int = None,
@@ -2064,6 +2168,7 @@ class StatusCodeTypeMapping:
 
 
 class TypeConfiguration:
+
     def __init__(self,
                  renameTo: str = None,
                  typeName: str = None
@@ -2078,6 +2183,7 @@ class TypeConfiguration:
 
 
 class TypeField:
+
     def __init__(self,
                  fieldNames: list[str] = None,
                  typeName: str = None,
@@ -2095,6 +2201,7 @@ class TypeField:
 
 
 class TypeField_quotes(dict[str, 'QuoteField']):
+
     def __init__(self, *args, **kwargs):
         args = tuple([{k: json_parser.parse_dict_to_class(v, QuoteField) for k, v in arg} for arg in args])
         super().__init__(*args, **kwargs)
@@ -2107,6 +2214,7 @@ class TypeField_quotes(dict[str, 'QuoteField']):
 
 
 class URLQueryConfiguration:
+
     def __init__(self,
                  name: str = None,
                  value: str = None
@@ -2121,6 +2229,7 @@ class URLQueryConfiguration:
 
 
 class UploadHookPayload:
+
     def __init__(self,
                  error: 'UploadHookPayload_error' = None,
                  file: 'HookFile' = None,
@@ -2142,6 +2251,7 @@ class UploadHookPayload:
 
 
 class UploadHookPayload_error:
+
     def __init__(self,
                  message: str = None,
                  name: str = None
@@ -2156,6 +2266,7 @@ class UploadHookPayload_error:
 
 
 class UploadHookResponse:
+
     def __init__(self,
                  error: str = None,
                  fileKey: str = None
@@ -2170,6 +2281,7 @@ class UploadHookResponse:
 
 
 class UploadedFile:
+
     def __init__(self,
                  key: str = None
                  ):
@@ -2182,6 +2294,7 @@ class UploadedFile:
 
 
 class UploadedFiles(list['UploadedFile']):
+
     def __init__(self, *args, **kwargs):
         args = tuple([[json_parser.parse_dict_to_class(v, UploadedFile) for v in arg] for arg in args])
         super().__init__(*args, **kwargs)
@@ -2195,6 +2308,7 @@ class UploadedFiles(list['UploadedFile']):
 
 
 class UpstreamAuthentication:
+
     def __init__(self,
                  jwtConfig: 'JwtUpstreamAuthenticationConfig' = None,
                  jwtWithAccessTokenExchangeConfig: 'JwtUpstreamAuthenticationWithAccessTokenExchange' = None,
@@ -2216,6 +2330,7 @@ class UpstreamAuthentication:
 
 
 class User:
+
     def __init__(self,
                  roles: list[str] = None,
                  accessToken: Optional[object] = None,
@@ -2283,6 +2398,7 @@ class User:
 
 
 class User_customClaims(dict[str, object]):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -2293,6 +2409,7 @@ class User_customClaims(dict[str, object]):
 
 
 class UserDefinedApi:
+
     def __init__(self,
                  allowedHostNames: list['ConfigurationVariable'] = None,
                  authenticationConfig: 'ApiAuthenticationConfig' = None,
@@ -2335,6 +2452,7 @@ class UserDefinedApi:
 
 
 class VariableInjectionConfiguration:
+
     def __init__(self,
                  valueTypeName: str = None,
                  variableKind: InjectVariableKind = None,
@@ -2365,6 +2483,10 @@ class VariableInjectionConfiguration:
 
 
 class VariableWhereInput:
+    _field_aliases = {
+        'not': 'not_'
+    }
+
     def __init__(self,
                  filter: 'VariableWhereInputFilter' = None,
                  not_: 'VariableWhereInput' = None
@@ -2381,6 +2503,7 @@ class VariableWhereInput:
 
 
 class VariableWhereInputConfiguration:
+
     def __init__(self,
                  variablePathComponents: list[str] = None,
                  whereInput: 'VariableWhereInput' = None
@@ -2396,6 +2519,7 @@ class VariableWhereInputConfiguration:
 
 
 class VariableWhereInputFilter:
+
     def __init__(self,
                  field: str = None,
                  relation: 'VariableWhereInputRelationFilter' = None,
@@ -2414,6 +2538,7 @@ class VariableWhereInputFilter:
 
 
 class VariableWhereInputRelationFilter:
+
     def __init__(self,
                  type: VariableWhereInputRelationFilterType = None,
                  where: 'VariableWhereInput' = None
@@ -2430,6 +2555,7 @@ class VariableWhereInputRelationFilter:
 
 
 class VariableWhereInputScalarFilter:
+
     def __init__(self,
                  insensitive: bool = None,
                  type: VariableWhereInputScalarFilterType = None
@@ -2445,6 +2571,7 @@ class VariableWhereInputScalarFilter:
 
 
 class WebhookConfiguration:
+
     def __init__(self,
                  filePath: str = None,
                  name: str = None,
@@ -2462,6 +2589,7 @@ class WebhookConfiguration:
 
 
 class WebhookVerifier:
+
     def __init__(self,
                  kind: WebhookVerifierKind = None,
                  secret: 'ConfigurationVariable' = None,
@@ -2482,6 +2610,7 @@ class WebhookVerifier:
 
 
 class WunderGraphConfiguration:
+
     def __init__(self,
                  api: 'UserDefinedApi' = None,
                  apiId: Optional[str] = None,
@@ -2505,6 +2634,7 @@ class WunderGraphConfiguration:
 
 
 class WunderGraphRequest:
+
     def __init__(self,
                  headers: 'RequestHeaders' = None,
                  method: str = None,
@@ -2526,6 +2656,7 @@ class WunderGraphRequest:
 
 
 class WunderGraphResponse:
+
     def __init__(self,
                  headers: 'RequestHeaders' = None,
                  method: str = None,
@@ -2548,10 +2679,3 @@ class WunderGraphResponse:
         _json['headers'] = self.headers.to_json() if self.headers else None
         json_parser.recover_dict_keys(_json, WunderGraphResponse)
         return _json
-
-
-def register_init_parameter_renames():
-    json_parser.init_parameter_renames[PostResolveGetTransformation] = [
-        json_parser.init_parameter_rename('from', 'from_')]
-    json_parser.init_parameter_renames[VariableWhereInput] = [json_parser.init_parameter_rename('not', 'not_')]
-    return
