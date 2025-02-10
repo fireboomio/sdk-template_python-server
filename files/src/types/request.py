@@ -2,6 +2,7 @@ import importlib
 import json
 import os
 import time
+import random
 from typing import Callable, Optional, Union
 
 from django.http import HttpRequest, HttpResponse, HttpResponseBase
@@ -36,6 +37,19 @@ class request_context:
     def to_json(self) -> dict:
         _dict = self.__dict__.copy()
         return _dict
+
+
+def new_empty_internal_client():
+    random.seed(time.time_ns())
+    rand_number = random.getrandbits(63)
+    uber_trace_id = f"{rand_number:016x}:{rand_number:016x}:0000000000000000:1"
+    return internal_client(
+        clientRequest=types_models.WunderGraphRequest(headers=types_models.RequestHeaders()),
+        extraHeaders=types_models.RequestHeaders(**{
+            types_models.InternalHeader.X_Request_Id.value: uuid.uuid4(),
+            types_models.InternalHeader.uber_trace_id.value: uber_trace_id
+        })
+    )
 
 
 __wg_field_name = "__wg"
@@ -118,10 +132,10 @@ def register_views(folder: str,
         if allowed_hooks is not None and item_without_ext not in allowed_hooks:
             continue
         item_module = importlib.import_module(item_path.removesuffix(".py").replace('/', '.'), package=".")
-        if not hasattr(item_module, item_without_ext+attr_name_suffix):
+        if not hasattr(item_module, item_without_ext + attr_name_suffix):
             continue
         item_url = os.path.join(folder, item).removesuffix(".py")
-        item_attr = getattr(item_module, item_without_ext+attr_name_suffix)
+        item_attr = getattr(item_module, item_without_ext + attr_name_suffix)
         item_register_module = register_module(folder, item_without_ext, item_url, item_attr, item_module)
         handler_func = handler(item_register_module)
         if handler_func is None:
