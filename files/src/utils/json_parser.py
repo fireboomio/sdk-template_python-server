@@ -1,7 +1,8 @@
 import json
-from typing import TypeVar, Type, Union, Callable, Optional
+from typing import TypeVar, Type, Union, Optional
 
 from django.core.serializers.json import DjangoJSONEncoder
+from pydantic import BaseModel
 
 T = TypeVar('T')
 
@@ -11,7 +12,10 @@ def parse_dict_to_class(_dict: Union[dict, str, T], _cls: Type[T]) -> Optional[T
         return None
     if isinstance(_dict, str):
         _dict = json.loads(_dict)
-    return _cls(**rename_dict_keys(_dict, _cls)) if isinstance(_dict, dict) else _dict
+    if isinstance(_dict, dict):
+        _dict = _dict if issubclass(_cls, BaseModel) else rename_dict_keys(_dict, _cls)
+        _dict = _cls(**_dict)
+    return _dict
 
 
 def parse_list_to_class(_list: Union[list[Union[dict, T]], str], _cls: Type[T]) -> Optional[Union[list[T], T]]:

@@ -30,7 +30,7 @@ class OperationHookPayload(Generic[I, O]):
         _dict = self.__dict__.copy()
         _dict['hook'] = self.hook.value if self.hook else None
         _dict['input'] = self.input.to_json() \
-            if hasattr(self.input, "to_json") else self.__dict__ \
+            if hasattr(self.input, "to_json") else self.input.__dict__ \
             if self.input else None
         _dict['response'] = self.response.to_json() if self.response else None
         _dict['setClientRequestHeaders'] = self.setClientRequestHeaders.to_json() \
@@ -51,7 +51,7 @@ class OperationHookPayload_response(Generic[O]):
         if isinstance(self.data, list):
             _dict['data'] = [x.to_json() if hasattr(x, "to_json") else x.__dict__ for x in self.data]
         elif not None:
-            _dict['data'] = self.data.to_json() if hasattr(self.data, "to_json") else self.__dict__
+            _dict['data'] = self.data.to_json() if hasattr(self.data, "to_json") else self.data.__dict__
         _dict['errors'] = [x.to_json() for x in self.errors] if self.errors else None
         return {k: v for k, v in _dict.items() if not k.startswith('__')}
 
