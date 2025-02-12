@@ -1,8 +1,8 @@
 import importlib
 import json
 import os
-import time
 import random
+import time
 from typing import Callable, Optional, Union
 
 from django.http import HttpRequest, HttpResponse, HttpResponseBase
@@ -60,13 +60,13 @@ def make_base_request_context(request: HttpRequest) -> request_context:
     ctx = request_context(request, extraHeaders=types_models.RequestHeaders(
         {k: v for k, v in request.headers.items() if k in extra_header_keys}))
     body_json = json.loads(request.body)
-    if __wg_field_name not in body_json:
+    if __wg_field_name in body_json:
+        body_wg = json_parser.parse_dict_to_class(body_json[__wg_field_name], types_models.BaseRequestBodyWg)
+        ctx.internal_client.user = body_wg.user
+        ctx.internal_client.clientRequest = body_wg.clientRequest
+    if not ctx.internal_client.clientRequest:
         ctx.internal_client.clientRequest = types_models.WunderGraphRequest(
             headers=types_models.RequestHeaders(request.headers))
-        return ctx
-    body_wg = json_parser.parse_dict_to_class(body_json[__wg_field_name], types_models.BaseRequestBodyWg)
-    ctx.internal_client.clientRequest = body_wg.clientRequest
-    ctx.internal_client.user = body_wg.user
     return ctx
 
 
@@ -131,6 +131,7 @@ def register_views(folder: str,
         item_without_ext = item.removesuffix(".py")
         if allowed_hooks is not None and item_without_ext not in allowed_hooks:
             continue
+        item_path = item_path.replace('\\', '/')
         item_module = importlib.import_module(item_path.removesuffix(".py").replace('/', '.'), package=".")
         if not hasattr(item_module, item_without_ext + attr_name_suffix):
             continue
