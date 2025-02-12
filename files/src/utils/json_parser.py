@@ -12,10 +12,7 @@ def parse_dict_to_class(_dict: Union[dict, str, T], _cls: Type[T]) -> Optional[T
         return None
     if isinstance(_dict, str):
         _dict = json.loads(_dict)
-    if isinstance(_dict, dict):
-        _dict = _dict if issubclass(_cls, BaseModel) else rename_dict_keys(_dict, _cls)
-        _dict = _cls(**_dict)
-    return _dict
+    return _cls(**rename_dict_keys(_dict, _cls)) if isinstance(_dict, dict) else _dict
 
 
 def parse_list_to_class(_list: Union[list[Union[dict, T]], str], _cls: Type[T]) -> Optional[Union[list[T], T]]:
@@ -56,6 +53,8 @@ def rename_dict_keys(_dict: dict, _cls: Type[T]) -> dict:
 
 
 def get_class_fields(_cls: Type[T]) -> list[str]:
+    if issubclass(_cls, BaseModel):
+        return list(_cls.model_fields.keys())
     return [attr for attr in dir(_cls()) if not hasattr(_cls, attr) and not attr.startswith("__")]
 
 
