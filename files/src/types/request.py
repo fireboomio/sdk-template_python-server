@@ -3,13 +3,11 @@ import json
 import os
 import random
 import time
-from typing import Callable, Optional, Union
-
-from django.http import HttpRequest, HttpResponse, HttpResponseBase
-from django.urls import path
-
 from custom_py.src.types import models as types_models
 from custom_py.src.utils import json_parser
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
+from django.urls import path
+from typing import Callable, Optional, Union
 
 
 class internal_client(types_models.BaseRequestBodyWg):
@@ -131,11 +129,14 @@ def register_views(folder: str,
         item_without_ext = item.removesuffix(".py")
         if allowed_hooks is not None and item_without_ext not in allowed_hooks:
             continue
-        item_path = item_path.replace('\\', '/')
-        item_module = importlib.import_module(item_path.removesuffix(".py").replace('/', '.'), package=".")
+        item_url = item_path.removesuffix(".py")
+        if '\\' in item_url:
+            item_url = item_url.replace('\\', '/')
+        item_module = importlib.import_module(item_url.replace('/', '.'), package=".")
         if not hasattr(item_module, item_without_ext + attr_name_suffix):
             continue
-        item_url = os.path.join(folder, item).removesuffix(".py")
+        if '\\' in folder:
+            folder = folder.replace('\\', '/')
         item_attr = getattr(item_module, item_without_ext + attr_name_suffix)
         item_register_module = register_module(folder, item_without_ext, item_url, item_attr, item_module)
         handler_func = handler(item_register_module)
