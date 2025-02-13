@@ -11,6 +11,8 @@ from custom_py.src.utils import json_parser
 
 def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponseBase]]:
     operation_path = os.path.join(module.folder, module.name)
+    if "\\" in operation_path:
+        operation_path = operation_path.replace("\\", "/")
     i_cls_name = module.name + "_input"
     o_cls_name = module.name + "_output"
     if not hasattr(module.import_, i_cls_name) or not hasattr(module.import_, o_cls_name):

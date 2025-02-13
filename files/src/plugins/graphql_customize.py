@@ -14,6 +14,8 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
     if not isinstance(module.attr, Schema):
         return None
     graphql_path = os.path.join(module.folder, module.name)
+    if "\\" in graphql_path:
+        graphql_path = graphql_path.replace("\\", "/")
     types_request.health_report.customizes.append(
         graphql_path.removeprefix(types_models.HookParent.customize.value + "/"))
     module.url = types_models.Endpoint.customize.value.replace("{name}", module.name)

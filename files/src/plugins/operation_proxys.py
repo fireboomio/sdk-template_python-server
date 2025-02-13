@@ -10,6 +10,8 @@ from custom_py.src.utils import json_parser
 
 def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponseBase]]:
     operation_path = os.path.join(module.folder, module.name)
+    if "\\" in operation_path:
+        operation_path = operation_path.replace("\\", "/")
     types_request.health_report.proxys.append(
         operation_path.removeprefix(types_models.HookParent.proxy.value + "/"))
     types_models_ext.rewrite_operation_json_file(operation_path)
