@@ -1,8 +1,11 @@
 import importlib
 import json
+import logging
 import os
 import random
 import time
+import uuid
+
 from custom_py.src.types import models as types_models
 from custom_py.src.utils import json_parser
 from django.http import HttpRequest, HttpResponse, HttpResponseBase
@@ -71,6 +74,8 @@ def make_base_request_context(request: HttpRequest) -> request_context:
 def make_hook_error_response(msg: Union[str, Exception]) -> HttpResponse:
     if isinstance(msg, Exception):
         msg = str(msg)
+        import traceback
+        logging.error(traceback.format_exc())
     return make_json_response(types_models.MiddlewareHookResponse(error=msg), status=400)
 
 
