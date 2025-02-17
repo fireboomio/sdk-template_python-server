@@ -22,9 +22,10 @@ class OperationHookPayload(Generic[I, O]):
         self.hook = hook
         self.input = input
         self.op = op
-        self.response = json_parser.parse_dict_to_class(response, OperationHookPayload_response[O])
-        self.setClientRequestHeaders = json_parser.parse_dict_to_class(setClientRequestHeaders,
-                                                                       types_models.RequestHeaders)
+        self.response: OperationHookPayload_response[O] = \
+            json_parser.parse_dict_to_class(response, OperationHookPayload_response[O])
+        self.setClientRequestHeaders = \
+            json_parser.parse_dict_to_class(setClientRequestHeaders, types_models.RequestHeaders)
 
     def to_json(self) -> dict:
         _dict = self.__dict__.copy()
