@@ -12,7 +12,7 @@ from decimal import Decimal
 {{#each enumFieldArray}}{{#if (isAbsent onceMap name 1)}}
 class {{name}}(Enum):
     {{#each values}}
-    {{this}}{{#if (stringInArray this sdk.keywords)}}_{{/if}} = {{#if (equalAny valueType ',string')}}"{{this}}"{{else}}{{this}}{{/if}}
+    {{#unless (equalAny valueType ',string')}}_{{/unless}}{{this}}{{#if (stringInArray this sdk.keywords)}}_{{/if}} = {{#if (equalAny valueType ',string')}}"{{this}}"{{else}}{{this}}{{/if}}
     {{/each}}
     {{/if~}}
 {{/each}}
