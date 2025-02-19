@@ -1,1 +1,52 @@
-Sorry, this file is not supported in this editor.
+import asyncio
+
+from graphene import ObjectType, String, Schema, ID, Field, Argument, Boolean
+
+
+class Query(ObjectType):
+    """定义一个字符串属性域hello 且有一个字符串参数为name，设置name的默认"""
+    hello = String(name=String(default_value="gaojy", required=True))
+
+    # resolve_hello定义了上面hello的实现，并返回查询结果
+    # 一般resolve需要加上固定前缀resolve_
+    @staticmethod
+    def resolve_hello(root, info, name):
+        return f"hello word -- {name}"
+
+
+class MessageInput(ObjectType):
+    id = ID()
+    content = String()
+
+
+q = asyncio.Queue()
+
+
+class Mutation(ObjectType):
+    create_message = Field(MessageInput, user_id=Argument(String, required=True), done=Argument(Boolean))
+
+    @staticmethod
+    def resolve_create_message(root, info, user_id, done=False):
+        data = {"id": user_id, "content": "hello"}
+        q.put_nowait(data)
+        if done:
+            q.put_nowait(None)
+        return data
+
+
+class Subscription(ObjectType):
+    message_created = Field(MessageInput)
+
+    @staticmethod
+    def subscribe_message_created(root, info):
+        async def counter():
+            while True:
+                item = await q.get()
+                if item is None:
+                    break
+                yield item
+
+        return counter()
+
+
+<%= it.name %>_schema = Schema(query=Query, subscription=Subscription, mutation=Mutation)

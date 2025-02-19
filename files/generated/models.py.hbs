@@ -42,9 +42,9 @@ class {{name}}(Enum):
         {{/if}}
         {{#unless fields}}{{#unless additional}}pass{{/unless}}
         {{~else}}{{#each fields}}{{#if description}}"""{{description}}"""
-        {{/if}}self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} = {{#if typeRefObject}}json_parser.parse_{{#if isArray}}list{{else}}dict{{/if}}_to_class({{/if~}}
+        {{/if}}self.{{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} = {{#if typeRefObject}}json_parser.parse_{{#if isArray}}list{{else}}dict{{/if}}_to_class({{else}}{{#if typeRefEnum}}{{typeRefEnum.name}}({{/if}}{{/if~}}
         {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}}
-        {{~#if typeRefObject}}, {{joinString '_' typeRefObject.documentPath~}}){{/if}}
+        {{~#if typeRefObject}}, {{joinString '_' typeRefObject.documentPath~}}){{else}}{{#if typeRefEnum}}) if {{name}}{{#if (stringInArray name sdk.keywords)}}_{{/if}} else None{{/if}}{{/if}}
         {{/each}}{{/unless}}
     def to_json(self) -> {{#equal typeName 'array'}}list{{else}}dict{{/equal~}}:
         _json = self{{#unless additional}}.__dict__.copy(){{/unless}}

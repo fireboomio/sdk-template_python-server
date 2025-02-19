@@ -5,12 +5,14 @@ import os
 import random
 import time
 import uuid
+from functools import lru_cache
+from typing import Callable, Optional, Union
+
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
+from django.urls import path
 
 from custom_py.src.types import models as types_models
 from custom_py.src.utils import json_parser
-from django.http import HttpRequest, HttpResponse, HttpResponseBase
-from django.urls import path
-from typing import Callable, Optional, Union
 
 
 class internal_client(types_models.BaseRequestBodyWg):
@@ -103,10 +105,18 @@ def _get_max_time_from_list(prefix: types_models.HookParent, data: list[str]) ->
 
 
 def healthy(_: HttpRequest) -> HttpResponse:
+    run_init_methods()
     return make_json_response(types_models.Health(report=health_report, status="ok"))
 
 
 urlpatterns = [path("health", healthy)]
+init_methods = []
+
+
+@lru_cache(maxsize=1)
+def run_init_methods():
+    for method in init_methods:
+        method()
 
 
 class register_module:

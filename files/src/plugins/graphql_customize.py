@@ -2,9 +2,10 @@ import json
 import os
 from typing import Callable, Optional
 
-from django.http import HttpRequest, HttpResponseBase, StreamingHttpResponse
+from django.http import HttpRequest, HttpResponseBase, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
 from graphene import Schema
+from graphql import ExecutionResult
 
 from custom_py.src.types import models as types_models, request as types_request
 from custom_py.src.utils import json_parser, json_file
@@ -20,9 +21,9 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
         graphql_path.removeprefix(types_models.HookParent.customize.value + "/"))
     module.url = types_models.Endpoint.customize.value.replace("{name}", module.name)
     rewrite_graphql_json_file(graphql_path, module.attr)
-    has_subscription = module.attr.subscription is not None
+    has_subscription = hasattr(module.attr, "subscription")
 
-    def wrapper(request: HttpRequest) -> HttpResponseBase:
+    async def wrapper(request: HttpRequest) -> HttpResponseBase:
         if request.method == "GET":
             return render(request, 'graphql_helix.html', context={"graphqlEndpoint": module.url})
 
@@ -30,15 +31,25 @@ def handler(module: types_request.register_module) -> Optional[Callable[[HttpReq
             input_data = json_parser.parse_dict_to_class(json.loads(request.body), types_models.CustomizeHookPayload)
             input_data_json = {
                 "context_value": types_request.make_base_request_context(request),
-                "variable_values": input_data.variables.to_json(),
+                "variable_values": input_data.variables.to_json() if input_data.variables else {},
                 "operation_name": input_data.operationName
             }
             if has_subscription and input_data.query.startswith("subscription"):
-                stream_data = module.attr.subscribe(query=input_data.query, **input_data_json)
-                return StreamingHttpResponse(stream_data)
+                stream_data = await module.attr.subscribe(query=input_data.query, **input_data_json)
+                if isinstance(stream_data, ExecutionResult):
+                    return HttpResponse(status=400, reason="\n".join([v.message for v in stream_data.errors]))
 
-            normal_data = module.attr.execute(query=input_data.query, **input_data_json)
-            return types_request.make_json_response(normal_data)
+                async def graphql_data():
+                    async for item in stream_data:
+                        yield f"%s%s\n\n" % ("" if item.errors else "data: ", json_parser.json_dumps(item.formatted))
+
+                return StreamingHttpResponse(graphql_data(),
+                                             content_type='text/event-stream',
+                                             headers={"Cache-Control": "no-cache"})
+
+            input_data_json["source"] = input_data.query
+            normal_data = module.attr.execute(**input_data_json)
+            return types_request.make_json_response(normal_data.formatted)
         except Exception as e:
             return types_request.make_hook_error_response(e)
 
