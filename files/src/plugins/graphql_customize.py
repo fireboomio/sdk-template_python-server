@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Callable, Optional
+from typing import Callable, Optional, Awaitable
 
 from django.http import HttpRequest, HttpResponseBase, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
@@ -11,7 +11,7 @@ from custom_py.src.types import models as types_models, request as types_request
 from custom_py.src.utils import json_parser, json_file
 
 
-def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], HttpResponseBase]]:
+def handler(module: types_request.register_module) -> Optional[Callable[[HttpRequest], Awaitable[HttpResponseBase]]]:
     if not isinstance(module.attr, Schema):
         return None
     graphql_path = os.path.join(module.folder, module.name)

@@ -6,7 +6,7 @@ import random
 import time
 import uuid
 from functools import lru_cache
-from typing import Callable, Optional, Union
+from typing import Callable, Optional, Union, Awaitable
 
 from django.http import HttpRequest, HttpResponse, HttpResponseBase
 from django.urls import path
@@ -129,7 +129,9 @@ class register_module:
 
 
 def register_views(folder: str,
-                   handler: Callable[[register_module], Optional[Callable[[HttpRequest], HttpResponseBase]]],
+                   handler: Callable[
+                       [register_module],
+                       Optional[Callable[[HttpRequest], Union[HttpResponseBase, Awaitable[HttpResponseBase]]]]],
                    allowed_hooks: list[str] = None,
                    attr_name_suffix: str = ""):
     if not os.path.isdir(folder):
