@@ -8,7 +8,7 @@ import uuid
 from functools import lru_cache
 from typing import Callable, Optional, Union, Awaitable
 
-from django.http import HttpRequest, HttpResponse, HttpResponseBase, Awaitable
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
 from django.urls import path
 
 from custom_py.src.types import models as types_models
