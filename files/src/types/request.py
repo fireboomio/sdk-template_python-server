@@ -106,11 +106,12 @@ def _get_max_time_from_list(prefix: types_models.HookParent, data: list[str]) ->
 
 def healthy(_: HttpRequest) -> HttpResponse:
     run_init_methods()
-    return make_json_response(types_models.Health(report=health_report, status="ok"))
+    return make_json_response(types_models.Health(report=health_report, status="ok", workdir=workdir))
 
 
 urlpatterns = [path("health", healthy)]
 init_methods = []
+workdir = os.getcwd()
 
 
 @lru_cache(maxsize=1)
