@@ -49,7 +49,7 @@ def new_empty_internal_client():
     return internal_client(
         clientRequest=types_models.WunderGraphRequest(headers=types_models.RequestHeaders()),
         extraHeaders=types_models.RequestHeaders(**{
-            types_models.InternalHeader.X_Request_Id.value: uuid.uuid4(),
+            types_models.InternalHeader.X_Request_Id.value: str(uuid.uuid4()),
             types_models.InternalHeader.uber_trace_id.value: uber_trace_id
         })
     )

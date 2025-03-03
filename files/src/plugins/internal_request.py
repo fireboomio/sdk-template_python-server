@@ -30,6 +30,8 @@ class internal_operation(Generic[I, O]):
             headers=client.clientRequest.headers.to_json(),
             requestURI=internal_url,
             method="POST")
+        if client.extraHeaders:
+            client_request.headers.update(client.extraHeaders.to_json())
         base_body_wg = types_models.BaseRequestBodyWg(clientRequest=client_request, user=client.user)
         request_data = types_models.OperationHookPayload(input=input.to_json()).to_json()
         request_data['__wg'] = base_body_wg.to_json()
