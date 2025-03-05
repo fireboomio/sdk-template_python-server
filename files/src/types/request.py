@@ -87,6 +87,7 @@ def make_json_response(data, **kwargs) -> HttpResponse:
 
 
 health_report = types_models.HealthReport([], [], [])
+health_count = 0
 
 
 def init_health_report_time():
@@ -104,8 +105,17 @@ def _get_max_time_from_list(prefix: types_models.HookParent, data: list[str]) ->
     return max(data_times) if len(data_times) > 0 else 0
 
 
-def healthy(_: HttpRequest) -> HttpResponse:
-    run_init_methods()
+def healthy(request: HttpRequest) -> HttpResponse:
+    user_agent = request.headers.get("User-Agent", None)
+    run_init_allowed = user_agent and user_agent.startswith("Go-http-client/")
+    hook_report_value = request.GET.get('enable-hook-report', None)
+    if hook_report_value:
+        global health_count
+        run_init_allowed = hook_report_value == "false" or health_count == 1
+        if not run_init_allowed:
+            health_count += 1
+    if run_init_allowed:
+        run_init_methods()
     return make_json_response(types_models.Health(report=health_report, status="ok", workdir=workdir))
 
 
