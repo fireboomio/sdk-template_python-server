@@ -142,7 +142,7 @@ def register_views(folder: str,
         if os.path.isdir(item_path):
             register_views(item_path, handler, allowed_hooks)
             continue
-        if not item.endswith(".py"):
+        if not item.endswith(".py") or item.startswith("__"):
             continue
         item_without_ext = item.removesuffix(".py")
         if allowed_hooks is not None and item_without_ext not in allowed_hooks:
@@ -150,7 +150,8 @@ def register_views(folder: str,
         item_url = item_path.removesuffix(".py")
         if '\\' in item_url:
             item_url = item_url.replace('\\', '/')
-        item_module = importlib.import_module(item_url.replace('/', '.'), package=".")
+        item_module_name = f"custom_py.{item_url.replace('/', '.')}"
+        item_module = importlib.import_module(item_module_name)
         if not hasattr(item_module, item_without_ext + attr_name_suffix):
             continue
         if '\\' in folder:
